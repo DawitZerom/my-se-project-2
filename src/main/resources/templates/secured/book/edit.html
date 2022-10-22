@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Fairfield Library Website - Edit Book</title>
+  <style>
+    a.std-lnk-btn {
+      text-decoration:none;color: #000000;border: 1px solid #000000;padding: 0.20em;background-color: #efefef;
+    }
+    input.std-btn {
+      color: #000000;border: 1px solid #000000;padding: 0.35em;background-color: #efefef;
+    }
+  </style>
+</head>
+<body>
+  <header th:replace="fragments/header :: header"></header>
+  <main>
+    <h1>Edit Book Form</h1>
+    <div style="border: 1px solid;padding: 1em;">
+      <div>
+        Fields marked with asterisk (*) are required.
+      </div>
+      <form method="post" action="/fairfieldlibrary/book/update" th:object="${book}">
+        <fieldset>
+          <input name="bookId" type="hidden" th:value="${book.bookId}">
+          <div>
+            <label>Title*</label>
+          </div>
+          <div>
+            <div><span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red;"></span></div>
+            <input name="title" type="text" th:value="${book.title}" autofocus>
+          </div>
+          <div>
+            <label>ISBN*</label>
+          </div>
+          <div>
+              <div><span th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}" style="color:red;"></span></div>
+              <input name="isbn" type="text" th:value="${book.isbn}" autofocus>
+          </div>
+          <div>
+              <label>Author*</label>
+              </div>
+              <div>
+                <div><span th:if="${#fields.hasErrors('author')}" th:errors="*{author}" style="color:red;"></span></div>
+                <input name="author" type="text" th:value="${book.author}" autofocus>
+          </div>
+        </fieldset>
+        <div style="margin-top: 1em;">
+          <a class="std-lnk-btn" href="/fairfieldlibrary/book/list">Cancel</a>
+          <input class="std-btn" type="reset" value="Reset">
+          <input class="std-btn" type="submit" value="Save Book">
+        </div>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

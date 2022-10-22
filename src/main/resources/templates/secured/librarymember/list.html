@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Fairfield Library Website - Home</title>
+  <style>
+    table {
+      border: 1px solid;
+      border-collapse: collapse;
+    }
+    table th, table td {
+      border: 1px solid;
+      padding: 1em;
+    }
+  </style>
+</head>
+<body>
+  <header th:replace="fragments/header :: header"></header>
+  
+  <main>
+    <h1>List of Library Members</h1>
+    <section>
+      <form action="/fairfieldlibrary/librarymember/search" method="get">
+        <fieldset>
+          <legend>Search for Library Member</legend>
+          <label>
+            You may search for library members
+          </label>
+          <div>
+            <input type="search" name="searchString" id="searchString" th:value="${searchString}" autofocus>
+            <button type="submit">Search</button>
+          </div>
+        </fieldset>
+      </form>
+    </section>
+    <div>
+      <p><a href="/fairfieldlibrary/librarymember/new">Add New Member</a></p>
+    </div>
+    <section>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Firstname</th>
+          <th>Lastname</th>
+          <th>Phone</th>
+          <th>*</th>
+          <th>*</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="libraryMember, counter : ${libraryMembers}">
+          <th th:text="${counter.count}+${'.'}"></th>
+          <td th:text="${libraryMember.Firstname}"></td>
+          <td th:text="${libraryMember.Lastname}"></td>
+          <td th:text="${libraryMember.Phone}"></td>
+          <td><a th:href="@{'/fairfieldlibrary/librarymember/edit/{libraryMemberId}'(libraryMemberId=${libraryMember.libraryMemberId})}">Edit</a></td>
+          <td><a th:href="@{'/fairfieldlibrary/librarymember/delete/{libraryMemberId}'(libraryMemberId=${libraryMember.libraryMemberId})}">Delete</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section th:if="${libraryMembers.totalPages>0}" style="margin-top: 1em;">
+    <table border="1" cellspacing="3" cellpadding="5">
+      <tbody>
+        <tr>
+          <th scope="row">Pages:</th>
+          <td th:each="pageCount : ${#numbers.sequence(1, libraryMembers.totalPages)}">
+            <a th:if="${currentPageNo == pageCount-1}" th:href="@{/fairfieldlibrary/librarymember/list(pageNo=${pageCount-1})}"
+              th:text="${pageCount}" style="padding: 100%; background-color:lightcoral"></a>
+            <a th:if="${currentPageNo != pageCount-1}" th:href="@{/fairfieldlibrary/librarymember/list(pageNo=${pageCount-1})}"
+              th:text="${pageCount}"></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  </main>
+</body>
+</html>

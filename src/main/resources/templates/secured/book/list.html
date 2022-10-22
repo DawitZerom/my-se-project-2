@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Fairfield Library website - Home</title>
+  <style>
+    table {
+      border: 1px solid;
+      border-collapse: collapse;
+    }
+    table th, table td {
+      border: 1px solid;
+      padding: 1em;
+    }
+  </style>
+</head>
+<body>
+  <header th:replace="fragments/header :: header"></header>
+  
+  <main>
+    <h1>List of Books</h1>
+    <section>
+      <form action="/fairfieldlibrary/book/search" method="get">
+        <fieldset>
+          <legend>Search for Books</legend>
+          <label>
+            You may search for books
+          </label>
+          <div>
+            <input type="search" name="searchString" id="searchString" th:value="${searchString}" autofocus>
+            <button type="submit">Search</button>
+          </div>
+        </fieldset>
+      </form>
+    </section>
+    <div>
+      <p><a href="/fairfieldlibrary/book/new">Add New Book</a></p>
+    </div>
+    <section>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>ISBN</th>
+          <th>Author</th>
+          <th>*</th>
+          <th>*</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="book, counter : ${books}">
+          <th th:text="${counter.count}+${'.'}"></th>
+          <td th:text="${book.title}"></td>
+          <td th:text="${book.isbn}"></td>
+          <td th:text="${book.author}"></td>
+          <td><a th:href="@{'/fairfieldlibrary/book/edit/{bookId}'(bookId=${book.bookId})}">Edit</a></td>
+          <td><a th:href="@{'/fairfieldlibrary/book/delete/{bookId}'(bookId=${book.bookId})}">Delete</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section th:if="${books.totalPages>0}" style="margin-top: 1em;">
+    <!-- Pagination -->
+    <table border="1" cellspacing="3" cellpadding="5">
+      <tbody>
+        <tr>
+          <th scope="row">Pages:</th>
+          <td th:each="pageCount : ${#numbers.sequence(1, books.totalPages)}">
+            <a th:if="${currentPageNo == pageCount-1}" th:href="@{/fairfieldlibrary/book/list(pageNo=${pageCount-1})}"
+              th:text="${pageCount}" style="padding: 100%; background-color:lightcoral"></a>
+            <a th:if="${currentPageNo != pageCount-1}" th:href="@{/fairfieldlibrary/book/list(pageNo=${pageCount-1})}"
+              th:text="${pageCount}"></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  </main>
+</body>
+</html>

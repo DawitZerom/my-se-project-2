@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Fairfield Library Website - New Member</title>
+  <style>
+    a.std-lnk-btn {
+      text-decoration:none;color: #000000;border: 1px solid #000000;padding: 0.20em;background-color: #efefef;
+    }
+    input.std-btn {
+      color: #000000;border: 1px solid #000000;padding: 0.35em;background-color: #efefef;
+    }
+  </style>
+</head>
+<body>
+  <header th:replace="fragments/header :: header"></header>
+  <main>
+    <h1>New Member Form</h1>
+    <div style="border: 1px solid;padding: 1em;">
+      <div>
+        Fields marked with asterisk (*) are required.
+      </div>
+      <form method="post" action="/fairfieldlibrary/librarymember/new" th:object="${libraryMember}">
+        <fieldset>
+          <div>
+            <label>Firstname*</label>
+          </div>
+          <div>
+            <div><span th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" style="color:red;"></span></div>
+            <input name="firstname" type="text" th:value="${libraryMember.firstname}" autofocus>
+          </div>
+          <div>
+            <label>Lastname*</label>
+          </div>
+          <div>
+              <div><span th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" style="color:red;"></span></div>
+              <input name="lastname" type="text" th:value="${libraryMember.lastname}" autofocus>
+          </div>
+
+          <div>
+            <label>Phone*</label>
+          </div>
+          <div>
+              <div><span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" style="color:red;"></span></div>
+              <input name="phone" type="text" th:value="${libraryMember.phone}" autofocus>
+          </div>
+        </fieldset>
+        <div style="margin-top: 1em;">
+          <a class="std-lnk-btn" href="/fairfieldlibrary/librarymember/list">Cancel</a>
+          <input class="std-btn" type="reset" value="Reset">
+          <input class="std-btn" type="submit" value="Add Member">
+        </div>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

@@ -26,4 +26,6 @@ public class Book {
     private String isbn;
     @NotBlank(message = "Author cannot be blank")
     private String author;
+
+    private String location;
 }

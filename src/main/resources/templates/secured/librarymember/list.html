@@ -22,9 +22,9 @@
     <section>
       <form action="/fairfieldlibrary/librarymember/search" method="get">
         <fieldset>
-          <legend>Search for Library Member</legend>
+          <legend>Search for Library Members</legend>
           <label>
-            You may search for library members
+            You may search by name, phone, etc.
           </label>
           <div>
             <input type="search" name="searchString" id="searchString" th:value="${searchString}" autofocus>
@@ -41,6 +41,7 @@
       <thead>
         <tr>
           <th>#</th>
+          <th>Member Number</th>
           <th>Firstname</th>
           <th>Lastname</th>
           <th>Phone</th>
@@ -51,6 +52,7 @@
       <tbody>
         <tr th:each="libraryMember, counter : ${libraryMembers}">
           <th th:text="${counter.count}+${'.'}"></th>
+          <td th:text="${libraryMember.memberNumber}"></td>
           <td th:text="${libraryMember.Firstname}"></td>
           <td th:text="${libraryMember.Lastname}"></td>
           <td th:text="${libraryMember.Phone}"></td>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Fairfield Library Website - Check-In</title>
+  <style>
+    a.std-lnk-btn {
+      text-decoration:none;color: #000000;border: 1px solid #000000;padding: 0.20em;background-color: #efefef;
+    }
+    input.std-btn {
+      color: #000000;border: 1px solid #000000;padding: 0.35em;background-color: #efefef;
+    }
+  </style>
+</head>
+<body>
+  <header th:replace="fragments/header :: header"></header>
+  <main>
+    <h1>Check-in Book</h1>
+    <section>
+      <form action="/fairfieldlibrary/checkin/search" method="get">
+        <fieldset>
+          <legend>Search for Checkout Record to Check-in</legend>
+          <label>
+            You may search by book isbn
+          </label>
+          <div>
+            <input type="search" name="isbn" placeholder="ISBN" id="isbn" th:value="${isbn}" autofocus required>
+            <button type="submit">Search</button>
+          </div>
+        </fieldset>
+      </form>
+    </section>
+    <section>
+        <div th:if="${notFound}">
+            <h4 th:text="${notFound}"></h4>
+        </div>
+    </section>
+  </main>
+</body>
+</html>

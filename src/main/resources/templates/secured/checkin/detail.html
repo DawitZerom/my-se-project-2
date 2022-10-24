@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Fairfield Library Website - Check-In</title>
+  <style>
+    a.std-lnk-btn {
+      text-decoration:none;color: #000000;border: 1px solid #000000;padding: 0.20em;background-color: #efefef;
+    }
+    input.std-btn {
+      color: #000000;border: 1px solid #000000;padding: 0.35em;background-color: #efefef;
+    }
+  </style>
+</head>
+<body>
+  <header th:replace="fragments/header :: header"></header>
+  <main>
+    <h1>Check-in Book</h1>
+    <section>
+      <form action="/fairfieldlibrary/checkin/search" method="get">
+        <fieldset>
+          <legend>Search for Checkout Record to Check-in</legend>
+          <label>
+            You may search by book isbn
+          </label>
+          <div>
+            <input type="search" name="isbn" placeholder="ISBN" id="isbn" th:value="${isbn}" autofocus>
+            <button type="submit">Search</button>
+          </div>
+        </fieldset>
+      </form>
+    </section>
+    <section>
+      <h3>Checkout Record Info</h3>
+      <div >
+        <form method="post" action="/fairfieldlibrary/checkin/update" th:object="${checkoutRecord}">
+          <fieldset>
+            <div>
+              <span>ISBN</span> : <span th:text="${checkoutRecord.book.isbn}"></span>
+            </div>
+            <div>
+              <span>Book Title</span> : <span th:text="${checkoutRecord.book.title}"></span>
+            </div>
+            <div>
+              <span>Member Number</span> : <span th:text="${checkoutRecord.libraryMember.memberNumber}"></span>
+            </div>
+            <div>
+              <span>Member Name</span> : <span th:text="${checkoutRecord.libraryMember.Firstname}"></span> <span th:text="${checkoutRecord.libraryMember.Lastname}"></span>
+            </div>
+            <div>
+              <span>Checked-out Date</span> : <span th:text="${checkoutRecord.checkoutDate}"></span>
+            </div>
+            <div>
+              <span>Due Date</span> : <span th:text="${checkoutRecord.checkoutDate}"></span>
+            </div>
+            <div>
+              <span>Is Checked-in</span> : <span th:text="${checkoutRecord.isCheckedIn}"></span>
+            </div>
+          </fieldset>
+          <div style="margin-top: 1em;">
+            <a class="std-lnk-btn" href="/fairfieldlibrary/checkoutrecord/list">Cancel</a>
+            <input class="std-btn" type="reset" value="Reset">
+            <input class="std-btn" type="submit" value="Check-in">
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>

@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.miu.cs.cs425.fairfieldlibrarywebapp.dto.CheckoutRecordDTO;
+import edu.miu.cs.cs425.fairfieldlibrarywebapp.exception.CustomNotFoundException;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.model.CheckoutRecord;
+import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.BookService;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.CheckoutRecordService;
 
 @Controller
@@ -21,6 +24,8 @@ import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.CheckoutRecordService;
 public class CheckoutRecordController {
     @Autowired
     private CheckoutRecordService checkoutRecordService;
+    @Autowired
+    private BookService bookService;
 
     @GetMapping(value = { "/list" })
     public ModelAndView listCheckoutRecords(@RequestParam(defaultValue = "0") int pageNo) {
@@ -35,22 +40,33 @@ public class CheckoutRecordController {
     @GetMapping(value = { "/new" })
     public ModelAndView displayNewCheckoutRecordForm() {
         var modelAndView = new ModelAndView();
-        modelAndView.addObject("checkoutRecord", new CheckoutRecord());
+        modelAndView.addObject("checkoutRecordDTO", new CheckoutRecordDTO());
+        modelAndView.setViewName("secured/checkoutrecord/new");
+        return modelAndView;
+    }
+
+    @GetMapping(value = { "/new/book/{bookId}" })
+    public ModelAndView displayNewCheckoutRecordParamForm(@PathVariable Integer bookId) {
+        var modelAndView = new ModelAndView();
+        var checkoutRecordDTO = new CheckoutRecordDTO();
+        var book = bookService.findBookById(bookId);
+        checkoutRecordDTO.setIsbn(book.getIsbn());
+        modelAndView.addObject("checkoutRecordDTO", checkoutRecordDTO);
         modelAndView.setViewName("secured/checkoutrecord/new");
         return modelAndView;
     }
 
     @PostMapping(value = { "/new" })
-    public ModelAndView addNewCheckoutRecord(@Valid @ModelAttribute CheckoutRecord checkoutRecord,
-            BindingResult bindingResult) {
+    public ModelAndView addNewCheckoutRecord(@Valid @ModelAttribute CheckoutRecordDTO checkoutRecordDTO,
+            BindingResult bindingResult) throws CustomNotFoundException {
         var modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
-            modelAndView.addObject("checkoutRecord", checkoutRecord);
+            modelAndView.addObject("checkoutRecordDTO", checkoutRecordDTO);
             modelAndView.addObject("errors", bindingResult.getAllErrors());
             modelAndView.setViewName("secured/checkoutrecord/new");
             return modelAndView;
         }
-        checkoutRecordService.saveNewCheckoutRecord(checkoutRecord);
+        checkoutRecordService.saveNewCheckoutRecord(checkoutRecordDTO);
         modelAndView.setViewName("redirect:/fairfieldlibrary/checkoutrecord/list");
         return modelAndView;
     }

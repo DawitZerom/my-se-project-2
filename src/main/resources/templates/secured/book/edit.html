@@ -27,22 +27,29 @@
             <label>Title*</label>
           </div>
           <div>
-            <div><span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red;"></span></div>
+            <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red;"></span>
             <input name="title" type="text" th:value="${book.title}" autofocus>
           </div>
           <div>
             <label>ISBN*</label>
           </div>
           <div>
-              <div><span th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}" style="color:red;"></span></div>
+              <span th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}" style="color:red;"></span>
               <input name="isbn" type="text" th:value="${book.isbn}" autofocus>
           </div>
           <div>
               <label>Author*</label>
-              </div>
-              <div>
-                <div><span th:if="${#fields.hasErrors('author')}" th:errors="*{author}" style="color:red;"></span></div>
-                <input name="author" type="text" th:value="${book.author}" autofocus>
+          </div>
+          <div>
+            <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}" style="color:red;"></span>
+            <input name="author" type="text" th:value="${book.author}" autofocus>
+          </div>
+          <div>
+            <label>Location</label>
+          </div>
+          <div>
+            <span th:if="${#fields.hasErrors('location')}" th:errors="*{location}" style="color:red;"></span>
+            <input name="location" type="text" th:value="${book.location}" autofocus>
           </div>
         </fieldset>
         <div style="margin-top: 1em;">

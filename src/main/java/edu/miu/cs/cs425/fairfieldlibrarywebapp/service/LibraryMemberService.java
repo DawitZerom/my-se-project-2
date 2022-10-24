@@ -3,7 +3,6 @@ package edu.miu.cs.cs425.fairfieldlibrarywebapp.service;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
-
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.model.LibraryMember;
 
 public interface LibraryMemberService {
@@ -12,6 +11,8 @@ public interface LibraryMemberService {
     Page<LibraryMember> getLibraryMembersPaged(int pageNo);
 
     LibraryMember findLibraryMemberById(Integer libraryMemberId);
+
+    LibraryMember findLibraryMemberByMemberNumber(String memberNumber);
 
     LibraryMember saveNewLibraryMember(LibraryMember libraryMember);
 

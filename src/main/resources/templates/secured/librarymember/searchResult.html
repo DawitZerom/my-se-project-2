@@ -23,11 +23,11 @@
     </h1>
     
     <section>
-      <form action="/fairfieldlibrary/book/search" method="get">
+      <form action="/fairfieldlibrary/librarymember/search" method="get">
         <fieldset>
-          <legend>Search for Books</legend>
+          <legend>Search for Library Members</legend>
           <label>
-            You may search for books
+            You may search for library members
           </label>
           <div>
             <input type="search" name="searchString" id="searchString" th:value="${searchString}" autofocus>
@@ -37,32 +37,35 @@
       </form>
     </section>
     <div>
-      <p><a href="/fairfieldlibrary/book/new">Add New Book</a></p>
+      <p><a href="/fairfieldlibrary/librarymember/new">Add New Member</a></p>
     </div>
     <table>
       <thead>
         <tr>
           <th>#</th>
-          <th>Title</th>
-          <th>ISBN</th>
-          <th>Author</th>
+          <th>Member Number</th>
+          <th>Firstname</th>
+          <th>Lastname</th>
+          <th>Phone</th>
           <th>*</th>
           <th>*</th>
         </tr>
       </thead>
       <tbody>
-        <tr th:each="book, counter : ${books}">
+        <tr th:each="libraryMember, counter : ${libraryMembers}">
           <th th:text="${counter.count}+${'.'}"></th>
-          <td th:text="${book.title}"></td>
-          <td th:text="${book.isbn}"></td>
-          <td th:text="${book.author}"></td>
-          <td><a th:href="@{'/fairfieldlibrary/book/edit/{bookId}'(bookId=${book.bookId})}">Edit</a></td>
-          <td><a th:href="@{'/fairfieldlibrary/book/delete/{bookId}'(bookId=${book.bookId})}">Delete</a></td>
+          <td th:text="${libraryMember.memberNumber}"></td>
+          <td th:text="${libraryMember.Firstname}"></td>
+          <td th:text="${libraryMember.Lastname}"></td>
+          <td th:text="${libraryMember.Phone}"></td>
+          <td><a th:href="@{'/fairfieldlibrary/librarymember/edit/{libraryMemberId}'(libraryMemberId=${libraryMember.libraryMemberId})}">Edit</a></td>
+          <td><a th:href="@{'/fairfieldlibrary/librarymember/delete/{libraryMemberId}'(libraryMemberId=${libraryMember.libraryMemberId})}">Delete</a></td>
         </tr>
-        <tr th:if="${books.isEmpty()}">
-          <td colspan="6" th:align="center">No books found</td>
+        <tr th:if="${libraryMembers.isEmpty()}">
+          <td colspan="7" th:align="center">No members found</td>
         </tr>
       </tbody>
+    </table>
   </main>
 </body>
 </html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Fairfield Library Website - Edit Checkout Record</title>
+  <style>
+    a.std-lnk-btn {
+      text-decoration:none;color: #000000;border: 1px solid #000000;padding: 0.20em;background-color: #efefef;
+    }
+    input.std-btn {
+      color: #000000;border: 1px solid #000000;padding: 0.35em;background-color: #efefef;
+    }
+  </style>
+</head>
+<body>
+  <header th:replace="fragments/header :: header"></header>
+  <main>
+    <h1>Edit Checkout Form</h1>
+    <div style="border: 1px solid;padding: 1em;">
+      <div>
+        Fields marked with asterisk (*) are required.
+      </div>
+      <form method="post" action="/fairfieldlibrary/checkoutrecord/new" th:object="${checkoutRecord}">
+        <fieldset>
+          <div>
+            <label>ISBN*</label>
+          </div>
+          <div>
+            <span th:if="${#fields.hasErrors('book.isbn')}" th:errors="*{book.isbn}" style="color:red;"></span>
+            <input name="book.isbn" type="text" th:value="${checkoutRecord.book.isbn}" autofocus required>
+          </div>
+          <div>
+            <label>Member Number*</label>
+          </div>
+          <div>
+            <span th:if="${#fields.hasErrors('libraryMember.memberNumber')}" th:errors="*{libraryMember.memberNumber}" style="color:red;"></span>
+            <input name="libraryMember.memberNumber" type="text" th:value="${checkoutRecord.libraryMember.memberNumber}" autofocus required>
+          </div>
+        </fieldset>
+        <div style="margin-top: 1em;">
+          <a class="std-lnk-btn" href="/fairfieldlibrary/checkoutrecord/list">Cancel</a>
+          <input class="std-btn" type="reset" value="Reset">
+          <input class="std-btn" type="submit" value="Checkout">
+        </div>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

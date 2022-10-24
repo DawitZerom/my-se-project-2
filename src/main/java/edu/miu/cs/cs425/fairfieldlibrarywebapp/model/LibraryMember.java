@@ -21,6 +21,8 @@ public class LibraryMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int libraryMemberId;
+    @NotBlank(message = "Member number cannot be blank")
+    private String memberNumber;
     @NotBlank(message = "Firstname cannot be blank")
     private String firstname;
     @NotBlank(message = "Lastname cannot be blank")

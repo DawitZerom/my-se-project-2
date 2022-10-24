@@ -3,7 +3,6 @@ package edu.miu.cs.cs425.fairfieldlibrarywebapp.service;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
-
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.model.Book;
 
 public interface BookService {
@@ -12,6 +11,8 @@ public interface BookService {
     Page<Book> getBooksPaged(int pageNo);
 
     Book findBookById(Integer bookId);
+
+    Book findBookByISBN(String isbn);
 
     Book saveNewBook(Book book);
 

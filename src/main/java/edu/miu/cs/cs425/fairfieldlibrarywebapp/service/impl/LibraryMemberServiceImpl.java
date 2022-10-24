@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
-
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.model.LibraryMember;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.repository.LibraryMemberRepository;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.LibraryMemberService;
@@ -30,6 +29,9 @@ public class LibraryMemberServiceImpl implements LibraryMemberService {
     @Override
     public LibraryMember findLibraryMemberById(Integer libraryMemberId) {
         return libraryMemberRepository.findById(libraryMemberId).orElse(null);
+        // return libraryMemberRepository.findById(libraryMemberId)
+        // .orElseThrow(() -> new CustomNotFoundException(
+        // String.format("Member with Id: %d is not found", libraryMemberId)));
     }
 
     @Override
@@ -51,6 +53,14 @@ public class LibraryMemberServiceImpl implements LibraryMemberService {
     public List<LibraryMember> searchLibraryMembers(String searchString) {
         return libraryMemberRepository.findAllByFirstnameContainingOrLastnameContainingOrPhoneContaining(searchString,
                 searchString, searchString);
+    }
+
+    @Override
+    public LibraryMember findLibraryMemberByMemberNumber(String memberNumber) {
+        return libraryMemberRepository.findByMemberNumber(memberNumber).orElse(null);
+        // return libraryMemberRepository.findByMemberNumber(memberNumber)
+        // .orElseThrow(() -> new CustomNotFoundException(
+        // String.format("Member with memberNumber: %s is not found", memberNumber)));
     }
 
 }

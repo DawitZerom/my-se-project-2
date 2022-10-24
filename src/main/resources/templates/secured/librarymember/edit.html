@@ -24,25 +24,31 @@
         <fieldset>
           <input name="libraryMemberId" type="hidden" th:value="${libraryMember.libraryMemberId}">
           <div>
+            <label>Member Number*</label>
+          </div>
+          <div>
+            <span th:if="${#fields.hasErrors('memberNumber')}" th:errors="*{memberNumber}" style="color:red;"></span>
+            <input name="memberNumber" type="text" th:value="${libraryMember.memberNumber}" autofocus>
+          </div>
+          <div>
             <label>Firstname*</label>
           </div>
           <div>
-            <div><span th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" style="color:red;"></span></div>
+            <span th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" style="color:red;"></span>
             <input name="firstname" type="text" th:value="${libraryMember.firstname}" autofocus>
           </div>
           <div>
             <label>Lastname*</label>
           </div>
           <div>
-              <div><span th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" style="color:red;"></span></div>
+              <span th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" style="color:red;"></span>
               <input name="lastname" type="text" th:value="${libraryMember.lastname}" autofocus>
           </div>
-
           <div>
             <label>Phone*</label>
           </div>
           <div>
-              <div><span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" style="color:red;"></span></div>
+              <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" style="color:red;"></span>
               <input name="phone" type="text" th:value="${libraryMember.phone}" autofocus>
           </div>
       </fieldset>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Fairfield Library Website - Home</title>
+  <style>
+    table {
+      border: 1px solid;
+      border-collapse: collapse;
+    }
+    table th, table td {
+      border: 1px solid;
+      padding: 1em;
+    }
+  </style>
+</head>
+<body>
+  <header th:replace="fragments/header :: header"></header>
+  
+  <main>
+    <h1>List of Check-Ins</h1>
+    <section>
+      <form action="#" method="get">
+        <fieldset>
+          <legend>Search for Checkin Records</legend>
+          <label>
+            You may search by member number, name, book title, isbn, etc.
+          </label>
+          <div>
+            <input type="search" name="searchString" id="searchString" th:value="${searchString}" autofocus>
+            <button type="submit">Search</button>
+          </div>
+        </fieldset>
+      </form>
+    </section>
+    <div>
+      <p><a href="/fairfieldlibrary/checkin/find">Check-in a book</a></p>
+    </div>
+    <section>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>ISBN</th>
+          <th>Book Title</th>
+          <th>Member Number</th>
+          <th>Member Name</th>
+          <th>Checked-out Date</th>
+          <th>Due Date</th>
+          <th>Checked-In Date</th>
+          <th>Overdue Fee</th>
+          <th>*</th>
+          <th>*</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="checkoutRecord, counter : ${checkoutRecords}">
+          <th th:text="${counter.count}+${'.'}"></th>
+          <td th:text="${checkoutRecord.book.isbn}"></td>
+          <td th:text="${checkoutRecord.book.title}"></td>
+          <td th:text="${checkoutRecord.libraryMember.memberNumber}"></td>
+          <td>
+            <span th:text="${checkoutRecord.libraryMember.Firstname}"></span> <span th:text="${checkoutRecord.libraryMember.Lastname}"></span>
+          </td>
+          <td th:text="${checkoutRecord.checkoutDate}"></td>
+          <td th:text="${checkoutRecord.dueDate}"></td>
+          <td th:text="${checkoutRecord.checkinDate}"></td>
+          <td>
+            $ <span th:text="${checkoutRecord.overdueFee}"></span>
+          </td>
+          <td><a th:href="@{'/fairfieldlibrary/checkin/edit/{checkoutRecordId}'(checkoutRecordId=${checkoutRecord.checkoutRecordId})}">Edit</a></td>
+          <td><a th:href="@{'/fairfieldlibrary/checkin/delete/{checkoutRecordId}'(checkoutRecordId=${checkoutRecord.checkoutRecordId})}">Delete</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section th:if="${checkoutRecords.totalPages>0}" style="margin-top: 1em;">
+    <table border="1" cellspacing="3" cellpadding="5">
+      <tbody>
+        <tr>
+          <th scope="row">Pages:</th>
+          <td th:each="pageCount : ${#numbers.sequence(1, checkoutRecords.totalPages)}">
+            <a th:if="${currentPageNo == pageCount-1}" th:href="@{/fairfieldlibrary/checkin/list(pageNo=${pageCount-1})}"
+              th:text="${pageCount}" style="padding: 100%; background-color:lightcoral"></a>
+            <a th:if="${currentPageNo != pageCount-1}" th:href="@{/fairfieldlibrary/checkin/list(pageNo=${pageCount-1})}"
+              th:text="${pageCount}"></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  </main>
+</body>
+</html>

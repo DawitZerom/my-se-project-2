@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.dto.CheckoutRecordDTO;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.exception.CustomNotFoundException;
-import edu.miu.cs.cs425.fairfieldlibrarywebapp.model.CheckoutRecord;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.BookService;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.CheckoutRecordService;
 
@@ -79,22 +78,24 @@ public class CheckoutRecordController {
             modelAndView.setViewName("redirect:/fairfieldlibrary/checkoutrecord/list");
             return modelAndView;
         }
-        modelAndView.addObject("checkoutRecord", checkoutRecord);
+        var checkoutRecordDTO = new CheckoutRecordDTO(checkoutRecordId, checkoutRecord.getBook().getIsbn(),
+                checkoutRecord.getLibraryMember().getMemberNumber());
+        modelAndView.addObject("checkoutRecordDTO", checkoutRecordDTO);
         modelAndView.setViewName("secured/checkoutrecord/edit");
         return modelAndView;
     }
 
     @PostMapping(value = { "/update" })
-    public ModelAndView updateCheckoutRecord(@Valid @ModelAttribute("checkoutRecord") CheckoutRecord checkoutRecord,
-            BindingResult bindingResult) {
+    public ModelAndView updateCheckoutRecord(@Valid @ModelAttribute CheckoutRecordDTO checkoutRecordDTO,
+            BindingResult bindingResult) throws CustomNotFoundException {
         var modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
-            modelAndView.addObject("checkoutRecord", checkoutRecord);
+            modelAndView.addObject("checkoutRecordDTO", checkoutRecordDTO);
             modelAndView.addObject("errors", bindingResult.getAllErrors());
             modelAndView.setViewName("secured/checkoutrecord/edit");
             return modelAndView;
         }
-        checkoutRecordService.updateCheckoutRecord(checkoutRecord);
+        checkoutRecordService.updateCheckoutRecord(checkoutRecordDTO);
         modelAndView.setViewName("redirect:/fairfieldlibrary/checkoutrecord/list");
         return modelAndView;
     }

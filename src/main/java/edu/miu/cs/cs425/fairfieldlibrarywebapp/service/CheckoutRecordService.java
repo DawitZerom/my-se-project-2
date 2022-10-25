@@ -18,7 +18,7 @@ public interface CheckoutRecordService {
 
     CheckoutRecord saveNewCheckoutRecord(CheckoutRecordDTO checkoutRecordDTO) throws CustomNotFoundException;
 
-    CheckoutRecord updateCheckoutRecord(CheckoutRecord checkoutRecord);
+    CheckoutRecord updateCheckoutRecord(CheckoutRecordDTO checkoutRecordDTO) throws CustomNotFoundException;
 
     void deleteCheckoutRecord(Integer checkoutRecordid);
 

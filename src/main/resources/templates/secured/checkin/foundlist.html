@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Fairfield Library Website - Check-Out</title>
+  <title>Fairfield Library Website - Check-In</title>
   <style>
     table {
       border: 1px solid;
@@ -16,27 +16,24 @@
 </head>
 <body>
   <header th:replace="fragments/header :: header"></header>
-  
   <main>
-    <h1>List of Check-Outs</h1>
+    <h1>Check-in Book</h1>
     <section>
-      <form action="#" method="get">
+      <form action="/fairfieldlibrary/checkin/search" method="get">
         <fieldset>
-          <legend>Search for Checkout Records</legend>
+          <legend>Search for Checkout Record to Check-in</legend>
           <label>
-            You may search by member name, book title, isbn, etc.
+            You may search by book isbn
           </label>
           <div>
-            <input type="search" name="searchString" id="searchString" th:value="${searchString}" autofocus>
+            <input type="search" name="isbn" placeholder="ISBN" id="isbn" th:value="${isbn}" autofocus required>
             <button type="submit">Search</button>
           </div>
         </fieldset>
       </form>
     </section>
-    <div>
-      <p><a href="/fairfieldlibrary/checkoutrecord/new">Check-out a book</a></p>
-    </div>
     <section>
+        <h3>List of Checkout Records</h3>
       <table>
         <thead>
           <tr>
@@ -48,8 +45,6 @@
             <th>Checkout Date</th>
             <th>Due Date</th>
             <th>Is Checked-In</th>
-            <th>*</th>
-            <th>*</th>
             <th>*</th>
           </tr>
         </thead>
@@ -66,14 +61,15 @@
             <td th:text="${checkoutRecord.dueDate}"></td>
             <td th:text="${checkoutRecord.isCheckedIn}"></td>
             <td><a th:href="@{'/fairfieldlibrary/checkin/find/{checkoutRecordId}'(checkoutRecordId=${checkoutRecord.checkoutRecordId})}">Check-in</a></td>
-            <td><a th:href="@{'/fairfieldlibrary/checkoutrecord/edit/{checkoutRecordId}'(checkoutRecordId=${checkoutRecord.checkoutRecordId})}">Edit</a></td>
-            <td><a th:href="@{'/fairfieldlibrary/checkoutrecord/delete/{checkoutRecordId}'(checkoutRecordId=${checkoutRecord.checkoutRecordId})}">Delete</a></td>
+          </tr>
+          <tr th:if="${checkoutRecords.isEmpty()}">
+            <td colspan="9" th:align="center">No records found</td>
           </tr>
         </tbody>
       </table>
     </section>
 
-    <section th:if="${checkoutRecords.totalPages>0}" style="margin-top: 1em;">
+    <!-- <section th:if="${checkoutRecords.totalPages>0}" style="margin-top: 1em;">
       <table border="1" cellspacing="3" cellpadding="5">
         <tbody>
           <tr>
@@ -87,7 +83,7 @@
           </tr>
         </tbody>
       </table>
-    </section>
+    </section> -->
   </main>
 </body>
 </html>

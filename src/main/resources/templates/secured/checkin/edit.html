@@ -15,13 +15,22 @@
 <body>
   <header th:replace="fragments/header :: header"></header>
   <main>
-    <h1>Check-in Book</h1>
+    <h1>Edit Check-in</h1>
     <section>
-      <h3>Checkout Record Info</h3>
+      <h3>Check-In Info</h3>
       <div >
-        <form method="post" action="/fairfieldlibrary/checkin/checkinbook" th:object="${checkoutRecord}">
+        <form method="post" action="/fairfieldlibrary/checkin/update" th:object="${checkoutRecord}">
           <fieldset>
+            <legend>Editable info</legend>
             <input name="checkoutRecordId" type="hidden" th:value="${checkoutRecord.checkoutRecordId}">
+            <div>
+                <span>Is Checked-In</span> :
+                <input type="radio" name="isCheckedIn" value="Yes" th:checked="${checkoutRecord.isCheckedIn=='Yes'} or ${checkoutRecord.isCheckedIn=='yes'}">
+                <label for="isCheckedInYes">Yes</label>          
+                <input type="radio" name="isCheckedIn" value="No" th:checked="${checkoutRecord.isCheckedIn=='no'}">
+                <label for="isCheckedInNo">No</label>
+            </div>
+            <hr><br>
             <div>
               <span>ISBN</span> : <span th:text="${checkoutRecord.book.isbn}"></span>
             </div>
@@ -43,16 +52,21 @@
             <div>
               <span>Is Checked-in</span> : <span th:text="${checkoutRecord.isCheckedIn}"></span>
             </div>
+            <div>
+                <span>Checked-in Date</span> : <span th:text="${checkoutRecord.dueDate}"></span>
+            </div>
+            <div>
+                <span>Overdue Fee</span> : $ <span th:text="${checkoutRecord.overdueFee}"></span>
+            </div>
           </fieldset>
           <div style="margin-top: 1em;">
-            <a class="std-lnk-btn" href="/fairfieldlibrary/checkoutrecord/list">Cancel</a>
+            <a class="std-lnk-btn" href="/fairfieldlibrary/checkin/list">Cancel</a>
             <input class="std-btn" type="reset" value="Reset">
-            <input class="std-btn" type="submit" value="Check-in">
+            <input class="std-btn" type="submit" value="Save Check-in">
           </div>
         </form>
       </div>
     </section>
-
   </main>
 </body>
 </html>

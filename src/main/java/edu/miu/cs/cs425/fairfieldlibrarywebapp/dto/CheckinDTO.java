@@ -11,10 +11,10 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CheckoutRecordDTO {
+public class CheckinDTO {
     private Integer checkoutRecordId;
-    @NotBlank(message = "ISBN cannot be blank")
-    private String isbn;
-    @NotBlank(message = "Member number cannot be blank")
-    private String memberNumber;
+    @NotBlank(message = "Is checked-in cannot be null")
+    private String isCheckedIn;
+    // @NotBlank(message = "Overdue fee cannot be blank")
+    // private double overdueFee;
 }

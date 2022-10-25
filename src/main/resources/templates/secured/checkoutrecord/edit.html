@@ -15,32 +15,33 @@
 <body>
   <header th:replace="fragments/header :: header"></header>
   <main>
-    <h1>Edit Checkout Form</h1>
+    <h1>Edit Checkout Record</h1>
     <div style="border: 1px solid;padding: 1em;">
       <div>
         Fields marked with asterisk (*) are required.
       </div>
-      <form method="post" action="/fairfieldlibrary/checkoutrecord/new" th:object="${checkoutRecord}">
+      <form method="post" action="/fairfieldlibrary/checkoutrecord/update" th:object="${checkoutRecordDTO}">
         <fieldset>
+          <input name="checkoutRecordId" type="hidden" th:value="${checkoutRecordDTO.checkoutRecordId}">
           <div>
             <label>ISBN*</label>
           </div>
           <div>
-            <span th:if="${#fields.hasErrors('book.isbn')}" th:errors="*{book.isbn}" style="color:red;"></span>
-            <input name="book.isbn" type="text" th:value="${checkoutRecord.book.isbn}" autofocus required>
+            <span th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}" style="color:red;"></span>
+            <input name="isbn" type="text" th:value="${checkoutRecordDTO.isbn}" autofocus required>
           </div>
           <div>
             <label>Member Number*</label>
           </div>
           <div>
-            <span th:if="${#fields.hasErrors('libraryMember.memberNumber')}" th:errors="*{libraryMember.memberNumber}" style="color:red;"></span>
-            <input name="libraryMember.memberNumber" type="text" th:value="${checkoutRecord.libraryMember.memberNumber}" autofocus required>
+            <span th:if="${#fields.hasErrors('memberNumber')}" th:errors="*{memberNumber}" style="color:red;"></span>
+            <input name="memberNumber" type="text" th:value="${checkoutRecordDTO.memberNumber}" autofocus required>
           </div>
         </fieldset>
         <div style="margin-top: 1em;">
           <a class="std-lnk-btn" href="/fairfieldlibrary/checkoutrecord/list">Cancel</a>
           <input class="std-btn" type="reset" value="Reset">
-          <input class="std-btn" type="submit" value="Checkout">
+          <input class="std-btn" type="submit" value="Save Checkout Record">
         </div>
       </form>
     </div>

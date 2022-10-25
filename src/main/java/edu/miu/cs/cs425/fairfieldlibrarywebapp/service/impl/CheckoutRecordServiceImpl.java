@@ -28,12 +28,12 @@ public class CheckoutRecordServiceImpl implements CheckoutRecordService {
 
     @Override
     public List<CheckoutRecord> getCheckoutRecords() {
-        return checkoutRecordRepository.findAll();
+        return checkoutRecordRepository.findAllCheckouts();
     }
 
     @Override
     public Page<CheckoutRecord> getCheckoutRecordsPaged(int pageNo) {
-        return checkoutRecordRepository.findAll(PageRequest.of(pageNo, 2, Direction.ASC, "checkoutDate"));
+        return checkoutRecordRepository.findAllCheckouts(PageRequest.of(pageNo, 2, Direction.ASC, "checkoutDate"));
     }
 
     @Override
@@ -55,7 +55,18 @@ public class CheckoutRecordServiceImpl implements CheckoutRecordService {
     }
 
     @Override
-    public CheckoutRecord updateCheckoutRecord(CheckoutRecord checkoutRecord) {
+    public CheckoutRecord updateCheckoutRecord(CheckoutRecordDTO checkoutRecordDTO) throws CustomNotFoundException {
+        var checkoutRecord = checkoutRecordRepository.findById(checkoutRecordDTO.getCheckoutRecordId())
+                .orElseThrow(() -> new CustomNotFoundException("Checkout record is not found"));
+        var book = bookRepository.findByIsbn(checkoutRecordDTO.getIsbn())
+                .orElseThrow(() -> new CustomNotFoundException(
+                        String.format("Book with ISBN: %s is not found", checkoutRecordDTO.getIsbn())));
+        var libraryMember = libraryMemberRepository.findByMemberNumber(checkoutRecordDTO.getMemberNumber())
+                .orElseThrow(() -> new CustomNotFoundException(
+                        String.format("Member with memberNumber: %s is not found",
+                                checkoutRecordDTO.getMemberNumber())));
+        checkoutRecord.setBook(book);
+        checkoutRecord.setLibraryMember(libraryMember);
         return checkoutRecordRepository.save(checkoutRecord);
     }
 

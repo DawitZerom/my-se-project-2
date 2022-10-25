@@ -28,7 +28,7 @@ public class CheckinController {
     private CheckinService checkinService;
 
     @GetMapping(value = { "/find" })
-    public ModelAndView displayCheckoutRecordForCheckin() {
+    public ModelAndView displayFormFindCheckin() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("secured/checkin/find");
         return modelAndView;
@@ -44,8 +44,8 @@ public class CheckinController {
         return modelAndView;
     }
 
-    @GetMapping(value = { "/search" })
-    public ModelAndView displayCheckoutRecordForCheckinParam(@RequestParam String isbn) {
+    @GetMapping(value = { "/searchbyisbn" })
+    public ModelAndView findCheckinsByIsbn(@RequestParam String isbn) {
         var modelAndView = new ModelAndView();
         List<CheckoutRecord> checkoutRecords = checkinService.findCheckoutRecordsByIsbn(isbn);
         modelAndView.addObject("isbn", isbn);
@@ -60,7 +60,7 @@ public class CheckinController {
     }
 
     @GetMapping(value = { "/find/{checkoutRecordId}" })
-    public ModelAndView displayCheckoutRecordForCheckinParam(@PathVariable Integer checkoutRecordId) {
+    public ModelAndView findCheckinByCheckoutRecordId(@PathVariable Integer checkoutRecordId) {
         var modelAndView = new ModelAndView();
         var checkoutRecord = checkinService.findCheckoutRecordById(checkoutRecordId);
         if (checkoutRecord == null) {
@@ -74,7 +74,7 @@ public class CheckinController {
     }
 
     @PostMapping(value = { "/checkinbook" })
-    public ModelAndView checkin(@RequestParam Integer checkoutRecordId) {
+    public ModelAndView checkinBook(@RequestParam Integer checkoutRecordId) {
         var modelAndView = new ModelAndView();
         var checkoutRecord = checkinService.findCheckoutRecordById(checkoutRecordId);
         if (checkoutRecord == null) {
@@ -111,6 +111,21 @@ public class CheckinController {
         }
         checkinService.updateCheckin(checkinDTO);
         modelAndView.setViewName("redirect:/fairfieldlibrary/checkin/list");
+        return modelAndView;
+    }
+
+    @GetMapping(value = { "/search" })
+    public ModelAndView saearchCheckins(@RequestParam String searchString,
+            @RequestParam(defaultValue = "0") int pageNo) {
+        if (searchString.isBlank()) {
+            return new ModelAndView("redirect:/fairfieldlibrary/checkin/list");
+        }
+        var modelAndView = new ModelAndView();
+        var checkoutRecords = checkinService.searchCheckins(searchString, pageNo);
+        modelAndView.addObject("checkoutRecords", checkoutRecords);
+        modelAndView.addObject("currentPageNo", pageNo);
+        modelAndView.addObject("searchString", searchString);
+        modelAndView.setViewName("secured/checkin/searchResult");
         return modelAndView;
     }
 }

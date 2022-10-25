@@ -22,5 +22,5 @@ public interface CheckoutRecordService {
 
     void deleteCheckoutRecord(Integer checkoutRecordid);
 
-    List<CheckoutRecord> searchCheckoutRecords(String searchString);
+    Page<CheckoutRecord> searchCheckoutRecords(String searchString, int pageNo);
 }

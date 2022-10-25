@@ -29,7 +29,7 @@ public class CheckinServiceImpl implements CheckinService {
 
     @Override
     public List<CheckoutRecord> findCheckoutRecordsByIsbn(String isbn) {
-        return checkoutRecordRepository.findCheckoutRecordByIsbn(isbn);
+        return checkoutRecordRepository.findCheckoutsdByIsbn(isbn);
     }
 
     @Override
@@ -43,17 +43,16 @@ public class CheckinServiceImpl implements CheckinService {
 
     private double calculateOverdueFee(CheckoutRecord checkoutRecord) {
         double overdueFee = 0;
-
         if (LocalDate.now().isAfter(checkoutRecord.getDueDate())) {
-            // calculate overdue fee
-            overdueFee = 1;
+            var days = ChronoUnit.DAYS.between(checkoutRecord.getDueDate(), LocalDate.now());
+            overdueFee = days * checkoutRecord.getLibraryMember().getLibraryMemberType().getOverdueFee();
         }
         return overdueFee;
     }
 
     @Override
     public Page<CheckoutRecord> getCheckinsPaged(int pageNo) {
-        return checkoutRecordRepository.findAllCheckins(PageRequest.of(pageNo, 2, Direction.ASC, "checkinDate"));
+        return checkoutRecordRepository.findAllCheckins(PageRequest.of(pageNo, 2, Direction.DESC, "checkinDate"));
     }
 
     @Override
@@ -62,10 +61,18 @@ public class CheckinServiceImpl implements CheckinService {
                 .orElseThrow();
         checkoutRecord.setIsCheckedIn(checkinDTO.getIsCheckedIn());
         if (checkinDTO.getIsCheckedIn().toLowerCase().equals("no")) {
-            checkoutRecord.setOverdueFee(0);
+            checkoutRecord.setOverdueFee(0.0);
             checkoutRecord.setCheckinDate(null);
         }
         return checkoutRecordRepository.save(checkoutRecord);
+    }
+
+    @Override
+    public Page<CheckoutRecord> searchCheckins(String searchString, int pageNo) {
+        return checkoutRecordRepository
+                .searchCheckinsByIsbnContainingOrBookTitleContaininOrMemberNumberContainingOrMemberNameContaining(
+                        searchString, searchString, searchString, searchString, searchString,
+                        PageRequest.of(pageNo, 2, Direction.DESC, "checkinDate"));
     }
 
 }

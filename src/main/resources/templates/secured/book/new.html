@@ -20,6 +20,7 @@
       <div>
         Fields marked with asterisk (*) are required.
       </div>
+      <br>
       <form method="post" action="/fairfieldlibrary/book/new" th:object="${book}">
         <fieldset>
           <div>
@@ -36,7 +37,6 @@
               <span th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}" style="color:red;"></span>
               <input name="isbn" type="text" th:value="${book.isbn}" autofocus>
           </div>
-
           <div>
               <label>Author*</label>
           </div>
@@ -44,16 +44,20 @@
               <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}" style="color:red;"></span>
               <input name="author" type="text" th:value="${book.author}" autofocus>
           </div>
-
+          <div>
+            <label>Publisher</label>
+          </div>
+          <div>
+            <span th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}" style="color:red;"></span>
+            <input name="publisher" type="text" th:value="${book.publisher}" autofocus>
+          </div>
           <div>
             <label>Location</label>
-        </div>
-        <div>
+          </div>
+          <div>
             <span th:if="${#fields.hasErrors('location')}" th:errors="*{location}" style="color:red;"></span>
             <input name="location" type="text" th:value="${book.location}" autofocus>
-        </div>
-
-
+          </div>
         </fieldset>
         <div style="margin-top: 1em;">
           <a class="std-lnk-btn" href="/fairfieldlibrary/book/list">Cancel</a>

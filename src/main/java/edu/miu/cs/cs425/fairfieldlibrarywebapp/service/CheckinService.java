@@ -19,4 +19,6 @@ public interface CheckinService {
     Page<CheckoutRecord> getCheckinsPaged(int pageNo);
 
     CheckoutRecord updateCheckin(CheckinDTO checkinDTO) throws CustomNotFoundException;
+
+    Page<CheckoutRecord> searchCheckins(String searchString, int pageNo);
 }

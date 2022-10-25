@@ -11,21 +11,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Book {
+@Entity
+public class LibraryMemberType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer bookId;
-    @NotBlank(message = "Title cannot be blank")
-    private String title;
-    @NotBlank(message = "ISBN cannot be blank")
-    private String isbn;
-    @NotBlank(message = "Author cannot be blank")
-    private String author;
-    private String publisher;
-    private String location;
+    private Integer libraryMemberTypeId;
+    @NotBlank
+    private String name;
+    @NotBlank
+    private Integer maxLengthBorrowBook;
+    @NotBlank
+    private Double overdueFee;
 }

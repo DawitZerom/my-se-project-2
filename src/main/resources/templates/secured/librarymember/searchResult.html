@@ -47,6 +47,7 @@
           <th>Firstname</th>
           <th>Lastname</th>
           <th>Phone</th>
+          <th>Membership</th>
           <th>*</th>
           <th>*</th>
         </tr>
@@ -58,6 +59,7 @@
           <td th:text="${libraryMember.Firstname}"></td>
           <td th:text="${libraryMember.Lastname}"></td>
           <td th:text="${libraryMember.Phone}"></td>
+          <td th:text="${libraryMember.libraryMemberType.name}"></td>
           <td><a th:href="@{'/fairfieldlibrary/librarymember/edit/{libraryMemberId}'(libraryMemberId=${libraryMember.libraryMemberId})}">Edit</a></td>
           <td><a th:href="@{'/fairfieldlibrary/librarymember/delete/{libraryMemberId}'(libraryMemberId=${libraryMember.libraryMemberId})}">Delete</a></td>
         </tr>

@@ -33,7 +33,7 @@ public class CheckoutRecordServiceImpl implements CheckoutRecordService {
 
     @Override
     public Page<CheckoutRecord> getCheckoutRecordsPaged(int pageNo) {
-        return checkoutRecordRepository.findAllCheckouts(PageRequest.of(pageNo, 2, Direction.ASC, "checkoutDate"));
+        return checkoutRecordRepository.findAllCheckouts(PageRequest.of(pageNo, 2, Direction.DESC, "checkoutDate"));
     }
 
     @Override
@@ -43,13 +43,17 @@ public class CheckoutRecordServiceImpl implements CheckoutRecordService {
 
     @Override
     public CheckoutRecord saveNewCheckoutRecord(CheckoutRecordDTO checkoutRecordDTO) throws CustomNotFoundException {
-        var book = bookRepository.findByIsbn(checkoutRecordDTO.getIsbn())
-                .orElseThrow(() -> new CustomNotFoundException(
-                        String.format("Book with ISBN: %s is not found", checkoutRecordDTO.getIsbn())));
         var libraryMember = libraryMemberRepository.findByMemberNumber(checkoutRecordDTO.getMemberNumber())
                 .orElseThrow(() -> new CustomNotFoundException(
                         String.format("Member with memberNumber: %s is not found",
                                 checkoutRecordDTO.getMemberNumber())));
+        var previousRecords = checkoutRecordRepository.findCheckoutsdByMemberNumber(libraryMember.getMemberNumber());
+        if (previousRecords.size() > 0) {
+            return null;
+        }
+        var book = bookRepository.findByIsbn(checkoutRecordDTO.getIsbn())
+                .orElseThrow(() -> new CustomNotFoundException(
+                        String.format("Book with ISBN: %s is not found", checkoutRecordDTO.getIsbn())));
         var checkoutRecord = new CheckoutRecord(book, libraryMember);
         return checkoutRecordRepository.save(checkoutRecord);
     }
@@ -76,9 +80,11 @@ public class CheckoutRecordServiceImpl implements CheckoutRecordService {
     }
 
     @Override
-    public List<CheckoutRecord> searchCheckoutRecords(String searchString) {
-        return checkoutRecordRepository.findAllByCheckoutDateContainingOrDueDateContainingOrCheckinDateContaining(
-                searchString, searchString, searchString);
+    public Page<CheckoutRecord> searchCheckoutRecords(String searchString, int pageNo) {
+        return checkoutRecordRepository
+                .searchCheckoutsByIsbnContainingOrBookTitleContaininOrMemberNumberContainingOrMemberNameContaining(
+                        searchString, searchString, searchString, searchString, searchString,
+                        PageRequest.of(pageNo, 2, Direction.DESC, "checkoutDate"));
     }
 
 }

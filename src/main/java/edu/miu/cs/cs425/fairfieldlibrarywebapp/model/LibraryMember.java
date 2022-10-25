@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 
@@ -20,7 +22,7 @@ import lombok.Setter;
 public class LibraryMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int libraryMemberId;
+    private Integer libraryMemberId;
     @NotBlank(message = "Member number cannot be blank")
     private String memberNumber;
     @NotBlank(message = "Firstname cannot be blank")
@@ -31,4 +33,8 @@ public class LibraryMember {
     private String phone;
     @OneToOne
     private Address address;
+
+    @ManyToOne
+    @JoinColumn(name = "libraryMemberTypeId")
+    private LibraryMemberType libraryMemberType;
 }

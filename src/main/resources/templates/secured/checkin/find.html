@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <title>Fairfield Library Website - Check-In</title>
   <style>
-    a.std-lnk-btn {
-      text-decoration:none;color: #000000;border: 1px solid #000000;padding: 0.20em;background-color: #efefef;
+    table {
+      border: 1px solid;
+      border-collapse: collapse;
     }
-    input.std-btn {
-      color: #000000;border: 1px solid #000000;padding: 0.35em;background-color: #efefef;
+    table th, table td {
+      border: 1px solid;
+      padding: 1em;
     }
   </style>
 </head>
@@ -17,7 +19,7 @@
   <main>
     <h1>Check-in Book</h1>
     <section>
-      <form action="/fairfieldlibrary/checkin/search" method="get">
+      <form action="/fairfieldlibrary/checkin/searchbyisbn" method="get">
         <fieldset>
           <legend>Search for Checkout Record to Check-in</legend>
           <label>
@@ -31,10 +33,26 @@
       </form>
     </section>
     <section>
-        <div th:if="${notFound}">
-            <h4 th:text="${notFound}"></h4>
-        </div>
-    </section>
+      <h3>List of Checkout Records to Check-in</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>ISBN</th>
+          <th>Book Title</th>
+          <th>Member Number</th>
+          <th>Member Name</th>
+          <th>Checkout Date</th>
+          <th>Due Date</th>
+          <th>Is Checked-In</th>
+          <th>*</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr></tr>
+      </tbody>
+    </table>
+  </section>
   </main>
 </body>
 </html>

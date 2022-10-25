@@ -27,7 +27,7 @@
                 <span>Is Checked-In</span> :
                 <input type="radio" name="isCheckedIn" value="Yes" th:checked="${checkoutRecord.isCheckedIn=='Yes'} or ${checkoutRecord.isCheckedIn=='yes'}">
                 <label for="isCheckedInYes">Yes</label>          
-                <input type="radio" name="isCheckedIn" value="No" th:checked="${checkoutRecord.isCheckedIn=='no'}">
+                <input type="radio" name="isCheckedIn" value="No" th:checked="${checkoutRecord.isCheckedIn=='No'} or ${checkoutRecord.isCheckedIn=='no'}">
                 <label for="isCheckedInNo">No</label>
             </div>
             <hr><br>

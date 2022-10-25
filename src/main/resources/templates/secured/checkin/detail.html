@@ -17,10 +17,10 @@
   <main>
     <h1>Check-in Book</h1>
     <section>
-      <h3>Checkout Record Info</h3>
       <div >
         <form method="post" action="/fairfieldlibrary/checkin/checkinbook" th:object="${checkoutRecord}">
           <fieldset>
+            <legend>Checkout Record Info</legend>
             <input name="checkoutRecordId" type="hidden" th:value="${checkoutRecord.checkoutRecordId}">
             <div>
               <span>ISBN</span> : <span th:text="${checkoutRecord.book.isbn}"></span>

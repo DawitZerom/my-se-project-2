@@ -20,6 +20,7 @@
       <div>
         Fields marked with asterisk (*) are required.
       </div>
+      <br>
       <form method="post" action="/fairfieldlibrary/checkoutrecord/update" th:object="${checkoutRecordDTO}">
         <fieldset>
           <input name="checkoutRecordId" type="hidden" th:value="${checkoutRecordDTO.checkoutRecordId}">

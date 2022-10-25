@@ -28,7 +28,7 @@ public class CheckoutRecord {
     private LocalDate dueDate;
     private String isCheckedIn;
     private LocalDate checkinDate;
-    private double overdueFee;
+    private Double overdueFee;
 
     @OneToOne
     @JoinColumn(name = "book_id")
@@ -38,13 +38,11 @@ public class CheckoutRecord {
     @JoinColumn(name = "library_member_id")
     private LibraryMember libraryMember;
 
-    private static final int BORROW_MAX_LENGTH = 7;
-
     public CheckoutRecord(Book book, LibraryMember libraryMember) {
         LocalDate today = LocalDate.now();
         this.checkoutDate = today;
 
-        LocalDate due = today.plusDays(BORROW_MAX_LENGTH);
+        LocalDate due = today.plusDays(libraryMember.getLibraryMemberType().getMaxLengthBorrowBook());
         this.dueDate = due;
         this.book = book;
         this.libraryMember = libraryMember;

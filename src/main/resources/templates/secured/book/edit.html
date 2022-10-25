@@ -20,6 +20,7 @@
       <div>
         Fields marked with asterisk (*) are required.
       </div>
+      <br>
       <form method="post" action="/fairfieldlibrary/book/update" th:object="${book}">
         <fieldset>
           <input name="bookId" type="hidden" th:value="${book.bookId}">
@@ -43,6 +44,13 @@
           <div>
             <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}" style="color:red;"></span>
             <input name="author" type="text" th:value="${book.author}" autofocus>
+          </div>
+          <div>
+            <label>Publisher</label>
+          </div>
+          <div>
+            <span th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}" style="color:red;"></span>
+            <input name="publisher" type="text" th:value="${book.publisher}" autofocus>
           </div>
           <div>
             <label>Location</label>

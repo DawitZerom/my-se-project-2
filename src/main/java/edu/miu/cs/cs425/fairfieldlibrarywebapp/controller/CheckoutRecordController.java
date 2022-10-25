@@ -45,7 +45,7 @@ public class CheckoutRecordController {
     }
 
     @GetMapping(value = { "/new/book/{bookId}" })
-    public ModelAndView displayNewCheckoutRecordParamForm(@PathVariable Integer bookId) {
+    public ModelAndView displayNewCheckoutRecordForm(@PathVariable Integer bookId) {
         var modelAndView = new ModelAndView();
         var checkoutRecordDTO = new CheckoutRecordDTO();
         var book = bookService.findBookById(bookId);
@@ -59,13 +59,20 @@ public class CheckoutRecordController {
     public ModelAndView addNewCheckoutRecord(@Valid @ModelAttribute CheckoutRecordDTO checkoutRecordDTO,
             BindingResult bindingResult) throws CustomNotFoundException {
         var modelAndView = new ModelAndView();
+
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("checkoutRecordDTO", checkoutRecordDTO);
             modelAndView.addObject("errors", bindingResult.getAllErrors());
             modelAndView.setViewName("secured/checkoutrecord/new");
             return modelAndView;
         }
-        checkoutRecordService.saveNewCheckoutRecord(checkoutRecordDTO);
+        var res = checkoutRecordService.saveNewCheckoutRecord(checkoutRecordDTO);
+        if (res == null) {
+            modelAndView.addObject("checkoutRecordDTO", checkoutRecordDTO);
+            modelAndView.addObject("errorMessage", "This member cannot checkout another book");
+            modelAndView.setViewName("secured/checkoutrecord/new");
+            return modelAndView;
+        }
         modelAndView.setViewName("redirect:/fairfieldlibrary/checkoutrecord/list");
         return modelAndView;
     }
@@ -109,13 +116,15 @@ public class CheckoutRecordController {
     }
 
     @GetMapping(value = { "/search" })
-    public ModelAndView searchCheckoutRecords(@RequestParam String searchString) {
+    public ModelAndView searchCheckoutRecords(@RequestParam String searchString,
+            @RequestParam(defaultValue = "0") int pageNo) {
         if (searchString.isBlank()) {
             return new ModelAndView("redirect:/fairfieldlibrary/checkoutrecord/list");
         }
         var modelAndView = new ModelAndView();
-        var checkoutRecord = checkoutRecordService.searchCheckoutRecords(searchString);
-        modelAndView.addObject("checkoutRecord", checkoutRecord);
+        var checkoutRecords = checkoutRecordService.searchCheckoutRecords(searchString, pageNo);
+        modelAndView.addObject("checkoutRecords", checkoutRecords);
+        modelAndView.addObject("currentPageNo", pageNo);
         modelAndView.addObject("searchString", searchString);
         modelAndView.setViewName("secured/checkoutrecord/searchResult");
         return modelAndView;

@@ -46,6 +46,9 @@
           <th>Title</th>
           <th>ISBN</th>
           <th>Author</th>
+          <th>Publisher</th>
+          <th>Location</th>
+          <th>*</th>
           <th>*</th>
           <th>*</th>
         </tr>
@@ -56,11 +59,14 @@
           <td th:text="${book.title}"></td>
           <td th:text="${book.isbn}"></td>
           <td th:text="${book.author}"></td>
+          <td th:text="${book.publisher}"></td>
+          <td th:text="${book.location}"></td>
+          <td><a th:href="@{'/fairfieldlibrary/checkoutrecord/new/book/{bookId}'(bookId=${book.bookId})}">Checkout</a></td>
           <td><a th:href="@{'/fairfieldlibrary/book/edit/{bookId}'(bookId=${book.bookId})}">Edit</a></td>
           <td><a th:href="@{'/fairfieldlibrary/book/delete/{bookId}'(bookId=${book.bookId})}">Delete</a></td>
         </tr>
         <tr th:if="${books.isEmpty()}">
-          <td colspan="6" th:align="center">No books found</td>
+          <td colspan="9" th:align="center">No books found</td>
         </tr>
       </tbody>
     </table>

@@ -19,7 +19,7 @@
   <main>
     <h1>Check-in Book</h1>
     <section>
-      <form action="/fairfieldlibrary/checkin/search" method="get">
+      <form action="/fairfieldlibrary/checkin/searchbyisbn" method="get">
         <fieldset>
           <legend>Search for Checkout Record to Check-in</legend>
           <label>
@@ -33,7 +33,7 @@
       </form>
     </section>
     <section>
-        <h3>List of Checkout Records</h3>
+        <h3>List of Checkout Records to Check-in</h3>
       <table>
         <thead>
           <tr>
@@ -58,7 +58,10 @@
               <span th:text="${checkoutRecord.libraryMember.Firstname}"></span> <span th:text="${checkoutRecord.libraryMember.Lastname}"></span>
             </td>
             <td th:text="${checkoutRecord.checkoutDate}"></td>
-            <td th:text="${checkoutRecord.dueDate}"></td>
+            <td th:switch="${#temporals.format(checkoutRecord.dueDate, 'yyyy-MM-dd') lt #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}">
+              <span th:case="true" th:text="${checkoutRecord.dueDate}" style="color: red;"></span>
+              <span th:case="false" th:text="${checkoutRecord.dueDate}"></span>
+            </td>
             <td th:text="${checkoutRecord.isCheckedIn}"></td>
             <td><a th:href="@{'/fairfieldlibrary/checkin/find/{checkoutRecordId}'(checkoutRecordId=${checkoutRecord.checkoutRecordId})}">Check-in</a></td>
           </tr>

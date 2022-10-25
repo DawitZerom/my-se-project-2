@@ -20,6 +20,7 @@
       <div>
         Fields marked with asterisk (*) are required.
       </div>
+      <br>
       <form method="post" action="/fairfieldlibrary/librarymember/new" th:object="${libraryMember}">
         <fieldset>
           <div>
@@ -51,6 +52,15 @@
               <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" style="color:red;"></span>
               <input name="phone" type="text" th:value="${libraryMember.phone}" autofocus>
           </div>
+        </fieldset>
+        <fieldset>
+          <legend>Member Types</legend>
+          <label th:each="type : ${libraryMemberTypes}" style="padding-right: 4em;">
+          <input style="margin-right: .5em;"
+              name="libraryMemberType" type="radio"
+              th:value="${type.libraryMemberTypeId}" th:text="${#strings.capitalize(type.name)}"
+              th:field="*{libraryMemberType}">
+          </label>
         </fieldset>
         <div style="margin-top: 1em;">
           <a class="std-lnk-btn" href="/fairfieldlibrary/librarymember/list">Cancel</a>

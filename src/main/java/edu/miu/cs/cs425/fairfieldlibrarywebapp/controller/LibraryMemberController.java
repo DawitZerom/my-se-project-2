@@ -15,12 +15,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.model.LibraryMember;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.LibraryMemberService;
+import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.LibraryMemberTypeService;
 
 @Controller
 @RequestMapping(value = { "/fairfieldlibrary/librarymember" })
 public class LibraryMemberController {
     @Autowired
     private LibraryMemberService libraryMemberService;
+
+    @Autowired
+    private LibraryMemberTypeService libraryMemberTypeService;
 
     @GetMapping(value = { "/list" })
     public ModelAndView listLibrarymembers(@RequestParam(defaultValue = "0") int pageNo) {
@@ -36,6 +40,7 @@ public class LibraryMemberController {
     public ModelAndView displayNewLibrarymemberForm() {
         var modelAndView = new ModelAndView();
         modelAndView.addObject("libraryMember", new LibraryMember());
+        modelAndView.addObject("libraryMemberTypes", libraryMemberTypeService.getLibraryMemberTypes());
         modelAndView.setViewName("secured/librarymember/new");
         return modelAndView;
     }
@@ -64,6 +69,7 @@ public class LibraryMemberController {
             return modelAndView;
         }
         modelAndView.addObject("libraryMember", libraryMember);
+        modelAndView.addObject("libraryMemberTypes", libraryMemberTypeService.getLibraryMemberTypes());
         modelAndView.setViewName("secured/librarymember/edit");
         return modelAndView;
     }

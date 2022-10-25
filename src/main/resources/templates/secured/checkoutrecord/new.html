@@ -16,10 +16,14 @@
   <header th:replace="fragments/header :: header"></header>
   <main>
     <h1>New Checkout Record</h1>
+    <div th:if="${errorMessage}">
+      <h3 th:text="${errorMessage}" style="color:red;"></h3>
+    </div>
     <div style="border: 1px solid;padding: 1em;">
       <div>
         Fields marked with asterisk (*) are required.
       </div>
+      <br>
       <form method="post" action="/fairfieldlibrary/checkoutrecord/new" th:object="${checkoutRecordDTO}">
         <fieldset>
           <div>

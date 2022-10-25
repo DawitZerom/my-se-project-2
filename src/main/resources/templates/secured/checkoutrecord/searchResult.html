@@ -18,7 +18,9 @@
   <header th:replace="fragments/header :: header"></header>
   
   <main>
-    <h1>List of Check-Outs</h1>
+    <h1>
+        Search results for '[[${searchString}]]'
+    </h1>
     <section>
       <form action="/fairfieldlibrary/checkoutrecord/search" method="get">
         <fieldset>
@@ -72,19 +74,21 @@
             <td><a th:href="@{'/fairfieldlibrary/checkoutrecord/edit/{checkoutRecordId}'(checkoutRecordId=${checkoutRecord.checkoutRecordId})}">Edit</a></td>
             <td><a th:href="@{'/fairfieldlibrary/checkoutrecord/delete/{checkoutRecordId}'(checkoutRecordId=${checkoutRecord.checkoutRecordId})}">Delete</a></td>
           </tr>
+          <tr th:if="${checkoutRecords.isEmpty()}">
+            <td colspan="11" th:align="center">No records found</td>
+          </tr>
         </tbody>
       </table>
     </section>
-
     <section th:if="${checkoutRecords.totalPages>0}" style="margin-top: 1em;">
       <table border="1" cellspacing="3" cellpadding="5">
         <tbody>
           <tr>
             <th scope="row">Pages:</th>
             <td th:each="pageCount : ${#numbers.sequence(1, checkoutRecords.totalPages)}">
-              <a th:if="${currentPageNo == pageCount-1}" th:href="@{/fairfieldlibrary/checkoutrecord/list(pageNo=${pageCount-1})}"
+              <a th:if="${currentPageNo == pageCount-1}" th:href="@{/fairfieldlibrary/checkoutrecord/search(searchString=${searchString}, pageNo=${pageCount-1})}"
                 th:text="${pageCount}" style="padding: 100%; background-color:lightcoral"></a>
-              <a th:if="${currentPageNo != pageCount-1}" th:href="@{/fairfieldlibrary/checkoutrecord/list(pageNo=${pageCount-1})}"
+              <a th:if="${currentPageNo != pageCount-1}" th:href="@{/fairfieldlibrary/checkoutrecord/search(searchString=${searchString}, pageNo=${pageCount-1})}"
                 th:text="${pageCount}"></a>
             </td>
           </tr>

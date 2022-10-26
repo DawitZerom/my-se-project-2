@@ -58,6 +58,13 @@
             <span th:if="${#fields.hasErrors('location')}" th:errors="*{location}" style="color:red;"></span>
             <input name="location" type="text" th:value="${book.location}" autofocus>
           </div>
+          <div>
+            <label>Total Copy</label>
+          </div>
+          <div>
+            <span th:if="${#fields.hasErrors('totalCopy')}" th:errors="*{totalCopy}" style="color:red;"></span>
+            <input name="totalCopy" type="number" th:value="${book.totalCopy}" autofocus>
+          </div>
         </fieldset>
         <div style="margin-top: 1em;">
           <a class="std-lnk-btn" href="/fairfieldlibrary/book/list">Cancel</a>

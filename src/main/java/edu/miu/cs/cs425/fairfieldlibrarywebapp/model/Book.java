@@ -14,8 +14,8 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +28,7 @@ public class Book {
     private String author;
     private String publisher;
     private String location;
+    private Integer totalCopy = 0;
+    private Integer availableCopy = 0;
+
 }

@@ -21,7 +21,7 @@ import edu.miu.cs.cs425.fairfieldlibrarywebapp.model.CheckoutRecord;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.CheckinService;
 
 @Controller
-@RequestMapping(value = { "/fairfieldlibrary/checkin" })
+@RequestMapping(value = { "/fairfieldlibrary/checkin", "/library/secured/checkin" })
 public class CheckinController {
 
     @Autowired

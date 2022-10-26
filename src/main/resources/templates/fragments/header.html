@@ -5,5 +5,12 @@
         <a href="/fairfieldlibrary/librarymember/list">Members</a> |
         <a href="/fairfieldlibrary/checkoutrecord/list">Check-Out</a> |
         <a href="/fairfieldlibrary/checkin/list">Check-In</a> |
+        <a href="/fairfieldlibrary/secured/service">Services</a> |
+        <a sec:authorize="isAnonymous()" href="/library/public/login">
+            Sign In
+        </a>
+        <a sec:authorize="isAuthenticated()" href="/library/public/logout">
+            Sign Out
+        </a>
     </nav>
 </header>

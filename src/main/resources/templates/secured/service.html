@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layouts/master-layout}">
+<head>
+    <title>Library - Services</title>
+</head>
+<body>
+    <div layout:fragment="content" style="padding-top:1em;" class="container">
+        <h1>Library - Services</h1>
+        <hr/>
+        <div style="font-size: 1em">
+            <p>Select the service you want from the option(s) presented below.</p>
+            <br/>
+            <div class="row">
+                <div sec:authorize="hasRole('ROLE_MEMBER')" class="col-md-4">
+                    <div style="font-size: 1em;">
+                        <div class="card border-primary mb-3" style="max-width: 20rem;">
+                            <div class="card-header">Library Member Tools</div>
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        <a href="/library/secured/book/list">
+                                            View Books
+                                        </a>
+                                    </p>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div sec:authorize="hasRole('ROLE_LIBRARIAN')" class="col-md-4">
+                    <div style="font-size: 1em;">
+                        <div class="card border-primary mb-3" style="max-width: 20rem;">
+                            <div class="card-header">Librarian Tools</div>
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        <a href="/library/secured/checkout/list">
+                                            Manage Check-Out/Check-In
+                                        </a>
+                                    </p>
+                                    <p class="card-text">
+                                        <a href="/library/secured/member/list">
+                                            Manage Library Members
+                                        </a>
+                                    </p>
+                                    <p class="card-text">
+                                        <a href="#">
+                                            Manage Books
+                                        </a>
+                                    </p>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-md-4">
+                    <div style="font-size: 1em;">
+                        <div class="card border-primary mb-3" style="max-width: 20rem;">
+                            <div class="card-header">Admin Tools</div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <a href="/library/secured/admin/usrmgmt/list">
+                                        Manage Users
+                                    </a>
+                                </p>
+                                <p class="card-text">
+                                    <a href="#">
+                                        Version Information
+                                    </a>
+                                </p>
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <th:block layout:fragment="footer"></th:block>
+
+</body>
+</html>

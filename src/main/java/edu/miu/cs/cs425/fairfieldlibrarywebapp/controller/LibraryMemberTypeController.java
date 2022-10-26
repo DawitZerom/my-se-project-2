@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.LibraryMemberTypeService;
 
 @Controller
-@RequestMapping(value = { "/fairfieldlibrary/librarymembertype" })
+@RequestMapping(value = { "/fairfieldlibrary/librarymembertype", "/library/secured/membertype" })
 public class LibraryMemberTypeController {
     @Autowired
     private LibraryMemberTypeService libraryMemberTypeService;

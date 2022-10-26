@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <title>Library System website - Home</title>
-    </head>
-    <body>
-        <header th:replace="fragments/header :: header"></header>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layouts/master-layout}">
+<head>
+    <title>Library - Home</title>
+</head>
+<body>
+    <div layout:fragment="content" style="padding-top:1em;" class="container">
+        <h1>Welcome to Fairfield Library System</h1>
+        <hr/>
         <main>
-            <h1>Welcome to Fairfield Library System</h1>
+            
         </main>
+        </div>
     </body>
 </html>

@@ -1,21 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layouts/master-layout}">
 <head>
-  <meta charset="UTF-8">
-  <title>Fairfield Library Website - New Member</title>
-  <style>
-    a.std-lnk-btn {
-      text-decoration:none;color: #000000;border: 1px solid #000000;padding: 0.20em;background-color: #efefef;
-    }
-    input.std-btn {
-      color: #000000;border: 1px solid #000000;padding: 0.35em;background-color: #efefef;
-    }
-  </style>
+    <title>Library - Services</title>
 </head>
 <body>
-  <header th:replace="fragments/header :: header"></header>
-  <main>
+    <div layout:fragment="content" style="padding-top:1em;" class="container">
     <h1>New Member Form</h1>
+    <hr/>
+  <main>
     <div style="border: 1px solid;padding: 1em;">
       <div>
         Fields marked with asterisk (*) are required.
@@ -23,6 +18,7 @@
       <br>
       <form method="post" action="/fairfieldlibrary/librarymember/new" th:object="${libraryMember}">
         <fieldset>
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
           <div>
             <label>Member Number*</label>
           </div>
@@ -44,7 +40,6 @@
               <span th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" style="color:red;"></span>
               <input name="lastname" type="text" th:value="${libraryMember.lastname}" autofocus>
           </div>
-
           <div>
             <label>Phone*</label>
           </div>
@@ -54,7 +49,9 @@
           </div>
         </fieldset>
         <fieldset>
-          <legend>Member Types</legend>
+          <div>
+            <label>Member Types</label>
+          </div>
           <label th:each="type : ${libraryMemberTypes}" style="padding-right: 4em;">
           <input style="margin-right: .5em;"
               name="libraryMemberType" type="radio"
@@ -70,5 +67,6 @@
       </form>
     </div>
   </main>
+  </div>
 </body>
 </html>

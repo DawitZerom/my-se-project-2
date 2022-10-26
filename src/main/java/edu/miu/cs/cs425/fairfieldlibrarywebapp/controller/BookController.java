@@ -17,7 +17,7 @@ import edu.miu.cs.cs425.fairfieldlibrarywebapp.model.Book;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.BookService;
 
 @Controller
-@RequestMapping(value = { "/fairfieldlibrary/book" })
+@RequestMapping(value = { "/fairfieldlibrary/book", "/library/secured/book" })
 public class BookController {
     @Autowired
     private BookService bookService;

@@ -1,23 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layouts/master-layout}">
 <head>
-  <meta charset="UTF-8">
-  <title>Fairfield Library Website - Check-In</title>
-  <style>
-    table {
-      border: 1px solid;
-      border-collapse: collapse;
-    }
-    table th, table td {
-      border: 1px solid;
-      padding: 1em;
-    }
-  </style>
+    <title>Library - Services</title>
 </head>
 <body>
-  <header th:replace="fragments/header :: header"></header>
+    <div layout:fragment="content" style="padding-top:1em;" class="container">
+      <h1>Check-in Book</h1>
+    <hr/>
   <main>
-    <h1>Check-in Book</h1>
     <section>
       <form action="/fairfieldlibrary/checkin/searchbyisbn" method="get">
         <fieldset>
@@ -32,8 +25,10 @@
         </fieldset>
       </form>
     </section>
+    <br>
+    
     <section>
-        <h3>List of Checkout Records to Check-in</h3>
+      <h5>List of Checkout Records to Check-in</h5>
       <table>
         <thead>
           <tr>
@@ -71,22 +66,7 @@
         </tbody>
       </table>
     </section>
-
-    <!-- <section th:if="${checkoutRecords.totalPages>0}" style="margin-top: 1em;">
-      <table border="1" cellspacing="3" cellpadding="5">
-        <tbody>
-          <tr>
-            <th scope="row">Pages:</th>
-            <td th:each="pageCount : ${#numbers.sequence(1, checkoutRecords.totalPages)}">
-              <a th:if="${currentPageNo == pageCount-1}" th:href="@{/fairfieldlibrary/checkoutrecord/list(pageNo=${pageCount-1})}"
-                th:text="${pageCount}" style="padding: 100%; background-color:lightcoral"></a>
-              <a th:if="${currentPageNo != pageCount-1}" th:href="@{/fairfieldlibrary/checkoutrecord/list(pageNo=${pageCount-1})}"
-                th:text="${pageCount}"></a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section> -->
   </main>
+  </div>
 </body>
 </html>

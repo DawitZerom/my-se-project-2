@@ -19,7 +19,7 @@ import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.BookService;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.CheckoutRecordService;
 
 @Controller
-@RequestMapping(value = { "/fairfieldlibrary/checkoutrecord" })
+@RequestMapping(value = { "/fairfieldlibrary/checkoutrecord", "/library/secured/checkout" })
 public class CheckoutRecordController {
     @Autowired
     private CheckoutRecordService checkoutRecordService;

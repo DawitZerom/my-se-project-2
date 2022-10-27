@@ -1,5 +1,6 @@
 package edu.miu.cs.cs425.fairfieldlibrarywebapp.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +25,7 @@ public class LibraryMember {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer libraryMemberId;
     @NotBlank(message = "Member number cannot be blank")
+    @Column(unique = true)
     private String memberNumber;
     @NotBlank(message = "Firstname cannot be blank")
     private String firstname;

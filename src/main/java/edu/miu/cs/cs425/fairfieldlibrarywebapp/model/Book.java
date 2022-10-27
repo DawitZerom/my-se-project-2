@@ -1,5 +1,6 @@
 package edu.miu.cs.cs425.fairfieldlibrarywebapp.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +24,7 @@ public class Book {
     @NotBlank(message = "Title cannot be blank")
     private String title;
     @NotBlank(message = "ISBN cannot be blank")
+    @Column(unique = true)
     private String isbn;
     @NotBlank(message = "Author cannot be blank")
     private String author;

@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
+import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,8 +23,8 @@ public class LibraryMemberType {
     private Integer libraryMemberTypeId;
     @NotBlank
     private String name;
-    @NotBlank
+    @NotNull
     private Integer maxLengthBorrowBook;
-    @NotBlank
+    @NotNull
     private Double overdueFee;
 }

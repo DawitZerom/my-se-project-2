@@ -24,7 +24,7 @@ public class LibraryMemberTypeServiceImpl implements LibraryMemberTypeService {
 
     @Override
     public Page<LibraryMemberType> getLibraryMemberTypesPaged(int pageNo) {
-        return libraryMemberTypeRepository.findAll(PageRequest.of(pageNo, 2, Direction.ASC, "name"));
+        return libraryMemberTypeRepository.findAll(PageRequest.of(pageNo, 10, Direction.ASC, "name"));
     }
 
     @Override
@@ -49,8 +49,10 @@ public class LibraryMemberTypeServiceImpl implements LibraryMemberTypeService {
 
     @Override
     public List<LibraryMemberType> searchLibraryMemberTypes(String searchString) {
-        // TODO Auto-generated method stub
-        return null;
+        // return
+        // libraryMemberTypeRepository.findAllByNameContainingOrMaxLengthBorrowBookContainingOrOverdueFee(
+        // searchString, searchString, searchString);
+        return libraryMemberTypeRepository.findByNameContaining(searchString);
     }
 
 }

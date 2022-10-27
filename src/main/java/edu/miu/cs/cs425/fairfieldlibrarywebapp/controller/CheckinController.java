@@ -30,7 +30,7 @@ public class CheckinController {
     @GetMapping(value = { "/find" })
     public ModelAndView displayFormFindCheckin() {
         var modelAndView = new ModelAndView();
-        modelAndView.setViewName("secured/checkin/find");
+        modelAndView.setViewName("secured/librarian/checkin/find");
         return modelAndView;
     }
 
@@ -40,7 +40,7 @@ public class CheckinController {
         var modelAndView = new ModelAndView();
         modelAndView.addObject("checkoutRecords", checkoutRecords);
         modelAndView.addObject("currentPageNo", pageNo);
-        modelAndView.setViewName("secured/checkin/list");
+        modelAndView.setViewName("secured/librarian/checkin/list");
         return modelAndView;
     }
 
@@ -51,11 +51,11 @@ public class CheckinController {
         modelAndView.addObject("isbn", isbn);
         if (checkoutRecords == null) {
             modelAndView.addObject("notFound", String.format("Book with ISBN: %s is not found", isbn));
-            modelAndView.setViewName("secured/checkin/find");
+            modelAndView.setViewName("secured/librarian/checkin/find");
             return modelAndView;
         }
         modelAndView.addObject("checkoutRecords", checkoutRecords);
-        modelAndView.setViewName("secured/checkin/foundlist");
+        modelAndView.setViewName("secured/librarian/checkin/foundlist");
         return modelAndView;
     }
 
@@ -65,11 +65,11 @@ public class CheckinController {
         var checkoutRecord = checkinService.findCheckoutRecordById(checkoutRecordId);
         if (checkoutRecord == null) {
             modelAndView.addObject("notFound", String.format("Book with Id: %d is not found", checkoutRecordId));
-            modelAndView.setViewName("secured/checkin/find");
+            modelAndView.setViewName("secured/librarian/checkin/find");
             return modelAndView;
         }
         modelAndView.addObject("checkoutRecord", checkoutRecord);
-        modelAndView.setViewName("secured/checkin/detail");
+        modelAndView.setViewName("secured/librarian/checkin/detail");
         return modelAndView;
     }
 
@@ -79,11 +79,11 @@ public class CheckinController {
         var checkoutRecord = checkinService.findCheckoutRecordById(checkoutRecordId);
         if (checkoutRecord == null) {
             modelAndView.addObject("notFound", "The record is not found");
-            modelAndView.setViewName("secured/checkin/find");
+            modelAndView.setViewName("secured/librarian/checkin/find");
             return modelAndView;
         }
         checkinService.checkin(checkoutRecord);
-        modelAndView.setViewName("redirect:/fairfieldlibrary/checkin/list");
+        modelAndView.setViewName("redirect:/library/secured/checkin/list");
         return modelAndView;
     }
 
@@ -92,11 +92,11 @@ public class CheckinController {
         var modelAndView = new ModelAndView();
         var checkoutRecord = checkinService.findCheckoutRecordById(checkoutRecordId);
         if (checkoutRecord == null) {
-            modelAndView.setViewName("redirect:/fairfieldlibrary/checkin/list");
+            modelAndView.setViewName("redirect:/library/secured/checkin/list");
             return modelAndView;
         }
         modelAndView.addObject("checkoutRecord", checkoutRecord);
-        modelAndView.setViewName("secured/checkin/edit");
+        modelAndView.setViewName("secured/librarian/checkin/edit");
         return modelAndView;
     }
 
@@ -106,11 +106,11 @@ public class CheckinController {
         var modelAndView = new ModelAndView();
         var checkoutRecord = checkinService.findCheckoutRecordById(checkinDTO.getCheckoutRecordId());
         if (checkoutRecord == null) {
-            modelAndView.setViewName("secured/checkin/list");
+            modelAndView.setViewName("secured/librarian/checkin/list");
             return modelAndView;
         }
         checkinService.updateCheckin(checkinDTO);
-        modelAndView.setViewName("redirect:/fairfieldlibrary/checkin/list");
+        modelAndView.setViewName("redirect:/library/secured/checkin/list");
         return modelAndView;
     }
 
@@ -118,14 +118,14 @@ public class CheckinController {
     public ModelAndView saearchCheckins(@RequestParam String searchString,
             @RequestParam(defaultValue = "0") int pageNo) {
         if (searchString.isBlank()) {
-            return new ModelAndView("redirect:/fairfieldlibrary/checkin/list");
+            return new ModelAndView("redirect:/library/secured/checkin/list");
         }
         var modelAndView = new ModelAndView();
         var checkoutRecords = checkinService.searchCheckins(searchString, pageNo);
         modelAndView.addObject("checkoutRecords", checkoutRecords);
         modelAndView.addObject("currentPageNo", pageNo);
         modelAndView.addObject("searchString", searchString);
-        modelAndView.setViewName("secured/checkin/searchResult");
+        modelAndView.setViewName("secured/librarian/checkin/searchResult");
         return modelAndView;
     }
 }

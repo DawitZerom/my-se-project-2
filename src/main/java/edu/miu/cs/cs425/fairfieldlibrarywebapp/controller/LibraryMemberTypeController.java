@@ -17,7 +17,7 @@ import edu.miu.cs.cs425.fairfieldlibrarywebapp.model.LibraryMemberType;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.LibraryMemberTypeService;
 
 @Controller
-@RequestMapping(value = { "/library/secured/librarymembertype", "/fairfieldlibrary/librarymembertype",
+@RequestMapping(value = { "/library/secured/librarymembertype",
         "/library/secured/membertype", "/library/secured/membershiptype" })
 public class LibraryMemberTypeController {
     @Autowired
@@ -29,7 +29,7 @@ public class LibraryMemberTypeController {
         var modelAndView = new ModelAndView();
         modelAndView.addObject("libraryMemberTypes", libraryMemberTypes);
         modelAndView.addObject("currentPageNo", pageNo);
-        modelAndView.setViewName("secured/librarymembertype/list");
+        modelAndView.setViewName("secured/librarian/librarymembertype/list");
         return modelAndView;
     }
 
@@ -37,7 +37,7 @@ public class LibraryMemberTypeController {
     public ModelAndView displayNewMembershipTypeForm() {
         var modelAndView = new ModelAndView();
         modelAndView.addObject("libraryMemberType", new LibraryMemberType());
-        modelAndView.setViewName("secured/librarymembertype/new");
+        modelAndView.setViewName("secured/librarian/librarymembertype/new");
         return modelAndView;
     }
 
@@ -48,11 +48,11 @@ public class LibraryMemberTypeController {
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("libraryMemberType", libraryMemberType);
             modelAndView.addObject("errors", bindingResult.getAllErrors());
-            modelAndView.setViewName("secured/librarymembertype/new");
+            modelAndView.setViewName("secured/librarian/librarymembertype/new");
             return modelAndView;
         }
         libraryMemberTypeService.saveNewLibraryMemberType(libraryMemberType);
-        modelAndView.setViewName("redirect:/fairfieldlibrary/librarymembertype/list");
+        modelAndView.setViewName("redirect:/library/secured/librarymembertype/list");
         return modelAndView;
     }
 
@@ -61,7 +61,7 @@ public class LibraryMemberTypeController {
         var modelAndView = new ModelAndView();
         var libraryMemberType = libraryMemberTypeService.findLibraryMemberTypeById(libraryMemberTypeId);
         modelAndView.addObject("libraryMemberType", libraryMemberType);
-        modelAndView.setViewName("secured/librarymembertype/edit");
+        modelAndView.setViewName("secured/librarian/librarymembertype/edit");
         return modelAndView;
     }
 
@@ -72,11 +72,11 @@ public class LibraryMemberTypeController {
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("libraryMemberType", libraryMemberType);
             modelAndView.addObject("errors", bindingResult.getAllErrors());
-            modelAndView.setViewName("secured/librarymembertype/edit");
+            modelAndView.setViewName("secured/librarian/librarymembertype/edit");
             return modelAndView;
         }
         libraryMemberTypeService.updateLibraryMemberType(libraryMemberType);
-        modelAndView.setViewName("redirect:/fairfieldlibrary/librarymembertype/list");
+        modelAndView.setViewName("redirect:/library/secured/librarymembertype/list");
         return modelAndView;
     }
 
@@ -84,20 +84,20 @@ public class LibraryMemberTypeController {
     public ModelAndView updateMembershipType(@PathVariable Integer libraryMemberTypeId) {
         var modelAndView = new ModelAndView();
         libraryMemberTypeService.deleteLibraryMemberType(libraryMemberTypeId);
-        modelAndView.setViewName("redirect:/fairfieldlibrary/librarymembertype/list");
+        modelAndView.setViewName("redirect:/library/secured/librarymembertype/list");
         return modelAndView;
     }
 
     @GetMapping(value = { "/search" })
     public ModelAndView searchMembershipType(@RequestParam String searchString) {
         if (searchString.isBlank()) {
-            return new ModelAndView("redirect:/fairfieldlibrary/librarymembertype/list");
+            return new ModelAndView("redirect:/library/secured/librarymembertype/list");
         }
         var modelAndView = new ModelAndView();
         var libraryMemberTypes = libraryMemberTypeService.searchLibraryMemberTypes(searchString);
         modelAndView.addObject("libraryMemberTypes", libraryMemberTypes);
         modelAndView.addObject("searchString", searchString);
-        modelAndView.setViewName("secured/librarymembertype/searchResult");
+        modelAndView.setViewName("secured/librarian/librarymembertype/searchResult");
         return modelAndView;
     }
 }

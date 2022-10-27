@@ -9,5 +9,4 @@ public class FairfieldlibrarywebappApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FairfieldlibrarywebappApplication.class, args);
 	}
-
 }

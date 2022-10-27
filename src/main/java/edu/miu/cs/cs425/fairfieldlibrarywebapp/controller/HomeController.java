@@ -8,9 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = { "/", "", "/library", "/fairfieldlibrary" })
 public class HomeController {
 
-    @GetMapping(value = { "", "/home" })
+    @GetMapping(value = { "", "/public/home", "/home" })
     public String displayHomepage() {
         return "public/index";
+    }
+
+    @GetMapping(value = { "/public/about", "/about" })
+    public String displayAboutpage() {
+        return "public/about";
     }
 
     @GetMapping(value = { "/secured/home" })

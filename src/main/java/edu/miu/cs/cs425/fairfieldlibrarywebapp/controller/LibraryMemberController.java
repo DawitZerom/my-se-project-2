@@ -18,7 +18,7 @@ import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.LibraryMemberService;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.LibraryMemberTypeService;
 
 @Controller
-@RequestMapping(value = { "/fairfieldlibrary/librarymember", "/library/member", "/library/secured/member" })
+@RequestMapping(value = { "/library/secured/member", "/library/secured/librarymember" })
 public class LibraryMemberController {
     @Autowired
     private LibraryMemberService libraryMemberService;
@@ -32,7 +32,7 @@ public class LibraryMemberController {
         var modelAndView = new ModelAndView();
         modelAndView.addObject("libraryMembers", libraryMembers);
         modelAndView.addObject("currentPageNo", pageNo);
-        modelAndView.setViewName("secured/librarymember/list");
+        modelAndView.setViewName("secured/librarian/librarymember/list");
         return modelAndView;
     }
 
@@ -41,7 +41,7 @@ public class LibraryMemberController {
         var modelAndView = new ModelAndView();
         modelAndView.addObject("libraryMember", new LibraryMember());
         modelAndView.addObject("libraryMemberTypes", libraryMemberTypeService.getLibraryMemberTypes());
-        modelAndView.setViewName("secured/librarymember/new");
+        modelAndView.setViewName("secured/librarian/librarymember/new");
         return modelAndView;
     }
 
@@ -52,11 +52,11 @@ public class LibraryMemberController {
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("libraryMember", libraryMember);
             modelAndView.addObject("errors", bindingResult.getAllErrors());
-            modelAndView.setViewName("secured/librarymember/new");
+            modelAndView.setViewName("secured/librarian/librarymember/new");
             return modelAndView;
         }
         libraryMemberService.saveNewLibraryMember(libraryMember);
-        modelAndView.setViewName("redirect:/fairfieldlibrary/librarymember/list");
+        modelAndView.setViewName("redirect:/library/secured/librarymember/list");
         return modelAndView;
     }
 
@@ -65,12 +65,12 @@ public class LibraryMemberController {
         var modelAndView = new ModelAndView();
         var libraryMember = libraryMemberService.findLibraryMemberById(libraryMemberId);
         if (libraryMember == null) {
-            modelAndView.setViewName("redirect:/fairfieldlibrary/librarymember/list");
+            modelAndView.setViewName("redirect:/library/secured/librarymember/list");
             return modelAndView;
         }
         modelAndView.addObject("libraryMember", libraryMember);
         modelAndView.addObject("libraryMemberTypes", libraryMemberTypeService.getLibraryMemberTypes());
-        modelAndView.setViewName("secured/librarymember/edit");
+        modelAndView.setViewName("secured/librarian/librarymember/edit");
         return modelAndView;
     }
 
@@ -81,11 +81,11 @@ public class LibraryMemberController {
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("libraryMember", libraryMember);
             modelAndView.addObject("errors", bindingResult.getAllErrors());
-            modelAndView.setViewName("secured/librarymember/edit");
+            modelAndView.setViewName("secured/librarian/librarymember/edit");
             return modelAndView;
         }
         libraryMemberService.updateLibraryMember(libraryMember);
-        modelAndView.setViewName("redirect:/fairfieldlibrary/librarymember/list");
+        modelAndView.setViewName("redirect:/library/secured/member/list");
         return modelAndView;
     }
 
@@ -93,20 +93,20 @@ public class LibraryMemberController {
     public ModelAndView deletelibraryMember(@PathVariable Integer libraryMemberId) {
         var modelAndView = new ModelAndView();
         libraryMemberService.deleteLibraryMember(libraryMemberId);
-        modelAndView.setViewName("redirect:/fairfieldlibrary/librarymember/list");
+        modelAndView.setViewName("redirect:/library/secured/librarymember/list");
         return modelAndView;
     }
 
     @GetMapping(value = { "/search" })
     public ModelAndView searchLibraryMembers(@RequestParam String searchString) {
         if (searchString.isBlank()) {
-            return new ModelAndView("redirect:/fairfieldlibrary/librarymember/list");
+            return new ModelAndView("redirect:/library/secured/member/list");
         }
         var modelAndView = new ModelAndView();
         var libraryMembers = libraryMemberService.searchLibraryMembers(searchString);
         modelAndView.addObject("libraryMembers", libraryMembers);
         modelAndView.addObject("searchString", searchString);
-        modelAndView.setViewName("secured/librarymember/searchResult");
+        modelAndView.setViewName("secured/librarian/librarymember/searchResult");
         return modelAndView;
     }
 }

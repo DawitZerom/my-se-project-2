@@ -28,7 +28,7 @@ public class BookController {
         var modelAndView = new ModelAndView();
         modelAndView.addObject("books", books);
         modelAndView.addObject("currentPageNo", pageNo);
-        modelAndView.setViewName("secured/book/list");
+        modelAndView.setViewName("secured/librarian/book/list");
         return modelAndView;
     }
 
@@ -36,7 +36,7 @@ public class BookController {
     public ModelAndView displayNewBookForm() {
         var modelAndView = new ModelAndView();
         modelAndView.addObject("book", new Book());
-        modelAndView.setViewName("secured/book/new");
+        modelAndView.setViewName("secured/librarian/book/new");
         return modelAndView;
     }
 
@@ -46,11 +46,11 @@ public class BookController {
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("book", book);
             modelAndView.addObject("errors", bindingResult.getAllErrors());
-            modelAndView.setViewName("secured/book/new");
+            modelAndView.setViewName("secured/librarian/book/new");
             return modelAndView;
         }
         bookService.saveNewBook(book);
-        modelAndView.setViewName("redirect:/fairfieldlibrary/book/list");
+        modelAndView.setViewName("redirect:/library/book/list");
         return modelAndView;
     }
 
@@ -59,11 +59,11 @@ public class BookController {
         var modelAndView = new ModelAndView();
         var book = bookService.findBookById(bookId);
         if (book == null) {
-            modelAndView.setViewName("redirect:/fairfieldlibrary/book/list");
+            modelAndView.setViewName("redirect:/library/book/list");
             return modelAndView;
         }
         modelAndView.addObject("book", book);
-        modelAndView.setViewName("secured/book/edit");
+        modelAndView.setViewName("secured/librarian/book/edit");
         return modelAndView;
     }
 
@@ -73,11 +73,11 @@ public class BookController {
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("book", book);
             modelAndView.addObject("errors", bindingResult.getAllErrors());
-            modelAndView.setViewName("secured/book/edit");
+            modelAndView.setViewName("secured/librarian/book/edit");
             return modelAndView;
         }
         bookService.updateBook(book);
-        modelAndView.setViewName("redirect:/fairfieldlibrary/book/list");
+        modelAndView.setViewName("redirect:/library/book/list");
         return modelAndView;
     }
 
@@ -85,20 +85,20 @@ public class BookController {
     public ModelAndView deleteBook(@PathVariable Integer bookId) {
         var modelAndView = new ModelAndView();
         bookService.deleteBook(bookId);
-        modelAndView.setViewName("redirect:/fairfieldlibrary/book/list");
+        modelAndView.setViewName("redirect:/library/book/list");
         return modelAndView;
     }
 
     @GetMapping(value = { "/search" })
     public ModelAndView searchBooks(@RequestParam String searchString) {
         if (searchString.isBlank()) {
-            return new ModelAndView("redirect:/fairfieldlibrary/book/list");
+            return new ModelAndView("redirect:/library/book/list");
         }
         var modelAndView = new ModelAndView();
         var books = bookService.searchBooks(searchString);
         modelAndView.addObject("books", books);
         modelAndView.addObject("searchString", searchString);
-        modelAndView.setViewName("secured/book/searchResult");
+        modelAndView.setViewName("secured/librarian/book/searchResult");
         return modelAndView;
     }
 }

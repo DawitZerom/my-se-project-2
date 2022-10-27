@@ -1,17 +1,20 @@
 <header th:fragment="header" xmlns:th="http://www.thymeleaf.org">
     <nav>
         <a href="/">Home</a> |
-        <a href="/fairfieldlibrary/book/list">Books</a> |
-        <a href="/fairfieldlibrary/librarymembertype/list">Membership Types</a> |
-        <a href="/fairfieldlibrary/librarymember/list">Members</a> |
-        <a href="/fairfieldlibrary/checkoutrecord/list">Check-Out</a> |
-        <a href="/fairfieldlibrary/checkin/list">Check-In</a> |
-        <a href="/fairfieldlibrary/secured/service">Services</a> |
+        <a href="/library/public/about">About</a> |
+        <!-- <a href="/library/secured/book/list">Books</a> |
+        <a href="/library/secured/membertype/list">Membership Types</a> |
+        <a href="/library/secured/member/list">Members</a> |
+        <a href="/library/secured/checkout/list">Check-Out</a> |
+        <a href="/library/secured/checkin/list">Check-In</a> | -->
+        <a sec:authorize="isAuthenticated()" href="/library/secured/service">Services |</a>
         <a sec:authorize="isAnonymous()" href="/library/public/login">
-            Sign In
-        </a>
+            Sign In |
+        </a> 
         <a sec:authorize="isAuthenticated()" href="/library/public/logout">
-            Sign Out
-        </a>
+            Sign Out |
+        </a> 
+        <span sec:authorize="isAnonymous()">Welcome, Guest</span>
+        <span sec:authorize="isAuthenticated()">Welcome, </span><span sec:authorize="isAuthenticated()" sec:authentication="principal.fullName"></span>
     </nav>
 </header>

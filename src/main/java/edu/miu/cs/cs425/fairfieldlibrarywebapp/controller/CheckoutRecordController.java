@@ -20,7 +20,7 @@ import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.BookService;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.CheckoutRecordService;
 
 @Controller
-@RequestMapping(value = { "/fairfieldlibrary/checkoutrecord", "/library/secured/checkout" })
+@RequestMapping(value = { "/library/secured/checkout" })
 public class CheckoutRecordController {
     @Autowired
     private CheckoutRecordService checkoutRecordService;
@@ -33,7 +33,7 @@ public class CheckoutRecordController {
         var modelAndView = new ModelAndView();
         modelAndView.addObject("checkoutRecords", checkoutRecords);
         modelAndView.addObject("currentPageNo", pageNo);
-        modelAndView.setViewName("secured/checkoutrecord/list");
+        modelAndView.setViewName("secured/librarian/checkout/list");
         return modelAndView;
     }
 
@@ -41,7 +41,7 @@ public class CheckoutRecordController {
     public ModelAndView displayNewCheckoutRecordForm() {
         var modelAndView = new ModelAndView();
         modelAndView.addObject("checkoutRecordDTO", new CheckoutRecordDTO());
-        modelAndView.setViewName("secured/checkoutrecord/new");
+        modelAndView.setViewName("secured/librarian/checkout/new");
         return modelAndView;
     }
 
@@ -52,7 +52,7 @@ public class CheckoutRecordController {
         var book = bookService.findBookById(bookId);
         checkoutRecordDTO.setIsbn(book.getIsbn());
         modelAndView.addObject("checkoutRecordDTO", checkoutRecordDTO);
-        modelAndView.setViewName("secured/checkoutrecord/new");
+        modelAndView.setViewName("secured/librarian/checkout/new");
         return modelAndView;
     }
 
@@ -64,7 +64,7 @@ public class CheckoutRecordController {
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("checkoutRecordDTO", checkoutRecordDTO);
             modelAndView.addObject("errors", bindingResult.getAllErrors());
-            modelAndView.setViewName("secured/checkoutrecord/new");
+            modelAndView.setViewName("secured/librarian/checkout/new");
             return modelAndView;
         }
         var res = checkoutRecordService.saveNewCheckoutRecord(checkoutRecordDTO);
@@ -72,10 +72,10 @@ public class CheckoutRecordController {
         if (res == null) {
             modelAndView.addObject("checkoutRecordDTO", checkoutRecordDTO);
             modelAndView.addObject("errorMessage", "This member cannot checkout another book");
-            modelAndView.setViewName("secured/checkoutrecord/new");
+            modelAndView.setViewName("secured/librarian/checkout/new");
             return modelAndView;
         }
-        modelAndView.setViewName("redirect:/fairfieldlibrary/checkoutrecord/list");
+        modelAndView.setViewName("redirect:/library/secured/checkout/list");
         return modelAndView;
     }
 
@@ -84,13 +84,13 @@ public class CheckoutRecordController {
         var modelAndView = new ModelAndView();
         var checkoutRecord = checkoutRecordService.findCheckoutRecordById(checkoutRecordId);
         if (checkoutRecord == null) {
-            modelAndView.setViewName("redirect:/fairfieldlibrary/checkoutrecord/list");
+            modelAndView.setViewName("redirect:/library/secured/checkout/list");
             return modelAndView;
         }
         var checkoutRecordDTO = new CheckoutRecordDTO(checkoutRecordId, checkoutRecord.getBook().getIsbn(),
                 checkoutRecord.getLibraryMember().getMemberNumber());
         modelAndView.addObject("checkoutRecordDTO", checkoutRecordDTO);
-        modelAndView.setViewName("secured/checkoutrecord/edit");
+        modelAndView.setViewName("secured/librarian/checkout/edit");
         return modelAndView;
     }
 
@@ -101,11 +101,11 @@ public class CheckoutRecordController {
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("checkoutRecordDTO", checkoutRecordDTO);
             modelAndView.addObject("errors", bindingResult.getAllErrors());
-            modelAndView.setViewName("secured/checkoutrecord/edit");
+            modelAndView.setViewName("secured/librarian/checkout/edit");
             return modelAndView;
         }
         checkoutRecordService.updateCheckoutRecord(checkoutRecordDTO);
-        modelAndView.setViewName("redirect:/fairfieldlibrary/checkoutrecord/list");
+        modelAndView.setViewName("redirect:/library/secured/checkout/list");
         return modelAndView;
     }
 
@@ -113,7 +113,7 @@ public class CheckoutRecordController {
     public ModelAndView deleteCheckoutRecord(@PathVariable Integer checkoutRecordId) {
         var modelAndView = new ModelAndView();
         checkoutRecordService.deleteCheckoutRecord(checkoutRecordId);
-        modelAndView.setViewName("redirect:/fairfieldlibrary/checkoutrecord/list");
+        modelAndView.setViewName("redirect:/library/secured/checkout/list");
         return modelAndView;
     }
 
@@ -121,14 +121,14 @@ public class CheckoutRecordController {
     public ModelAndView searchCheckoutRecords(@RequestParam String searchString,
             @RequestParam(defaultValue = "0") int pageNo) {
         if (searchString.isBlank()) {
-            return new ModelAndView("redirect:/fairfieldlibrary/checkoutrecord/list");
+            return new ModelAndView("redirect:/library/secured/checkout/list");
         }
         var modelAndView = new ModelAndView();
         var checkoutRecords = checkoutRecordService.searchCheckoutRecords(searchString, pageNo);
         modelAndView.addObject("checkoutRecords", checkoutRecords);
         modelAndView.addObject("currentPageNo", pageNo);
         modelAndView.addObject("searchString", searchString);
-        modelAndView.setViewName("secured/checkoutrecord/searchResult");
+        modelAndView.setViewName("secured/librarian/checkout/searchResult");
         return modelAndView;
     }
 }

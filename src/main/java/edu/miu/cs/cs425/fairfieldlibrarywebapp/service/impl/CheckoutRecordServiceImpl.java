@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.dto.CheckoutRecordDTO;
+import edu.miu.cs.cs425.fairfieldlibrarywebapp.exception.BookCopyNotAvailableException;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.exception.CustomNotFoundException;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.model.CheckoutRecord;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.repository.BookRepository;
@@ -42,18 +43,26 @@ public class CheckoutRecordServiceImpl implements CheckoutRecordService {
     }
 
     @Override
-    public CheckoutRecord saveNewCheckoutRecord(CheckoutRecordDTO checkoutRecordDTO) throws CustomNotFoundException {
+    public CheckoutRecord saveNewCheckoutRecord(CheckoutRecordDTO checkoutRecordDTO)
+            throws CustomNotFoundException, BookCopyNotAvailableException {
         var libraryMember = libraryMemberRepository.findByMemberNumber(checkoutRecordDTO.getMemberNumber())
                 .orElseThrow(() -> new CustomNotFoundException(
-                        String.format("Member with memberNumber: %s is not found",
+                        String.format("Member with number: %s is not found",
                                 checkoutRecordDTO.getMemberNumber())));
         var previousRecords = checkoutRecordRepository.findCheckoutsdByMemberNumber(libraryMember.getMemberNumber());
         if (previousRecords.size() > 0) {
+            // should return this member cannot checkout another book
             return null;
         }
         var book = bookRepository.findByIsbn(checkoutRecordDTO.getIsbn())
                 .orElseThrow(() -> new CustomNotFoundException(
                         String.format("Book with ISBN: %s is not found", checkoutRecordDTO.getIsbn())));
+        // to do with book copy
+        if (book.getAvailableCopy() <= 0) {
+            throw new BookCopyNotAvailableException(
+                    String.format("Book copy with ISBN: %s is not available", checkoutRecordDTO.getIsbn()));
+        }
+        book.setAvailableCopy(book.getAvailableCopy() - 1);
         var checkoutRecord = new CheckoutRecord(book, libraryMember);
         return checkoutRecordRepository.save(checkoutRecord);
     }

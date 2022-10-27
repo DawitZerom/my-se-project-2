@@ -56,7 +56,12 @@
           <td th:text="${book.location}"></td>
           <td th:text="${book.totalCopy}"></td>
           <td th:text="${book.availableCopy}"></td>
-          <td><a th:href="@{'/fairfieldlibrary/checkoutrecord/new/book/{bookId}'(bookId=${book.bookId})}">Checkout</a></td>
+          <td th:if="${book.availableCopy} > 0">
+            <a th:href="@{'/fairfieldlibrary/checkoutrecord/new/book/{bookId}'(bookId=${book.bookId})}">Checkout</a>
+          </td>
+          <td th:unless="${book.availableCopy} > 0">
+            <span style="color: grey;">Checkout</span>
+          </td>
           <td><a th:href="@{'/fairfieldlibrary/book/edit/{bookId}'(bookId=${book.bookId})}">Edit</a></td>
           <td><a th:href="@{'/fairfieldlibrary/book/delete/{bookId}'(bookId=${book.bookId})}">Delete</a></td>
         </tr>

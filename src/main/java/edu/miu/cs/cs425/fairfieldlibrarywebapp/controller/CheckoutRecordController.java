@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.dto.CheckoutRecordDTO;
+import edu.miu.cs.cs425.fairfieldlibrarywebapp.exception.BookCopyNotAvailableException;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.exception.CustomNotFoundException;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.BookService;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.CheckoutRecordService;
@@ -57,7 +58,7 @@ public class CheckoutRecordController {
 
     @PostMapping(value = { "/new" })
     public ModelAndView addNewCheckoutRecord(@Valid @ModelAttribute CheckoutRecordDTO checkoutRecordDTO,
-            BindingResult bindingResult) throws CustomNotFoundException {
+            BindingResult bindingResult) throws CustomNotFoundException, BookCopyNotAvailableException {
         var modelAndView = new ModelAndView();
 
         if (bindingResult.hasErrors()) {
@@ -67,6 +68,7 @@ public class CheckoutRecordController {
             return modelAndView;
         }
         var res = checkoutRecordService.saveNewCheckoutRecord(checkoutRecordDTO);
+
         if (res == null) {
             modelAndView.addObject("checkoutRecordDTO", checkoutRecordDTO);
             modelAndView.addObject("errorMessage", "This member cannot checkout another book");

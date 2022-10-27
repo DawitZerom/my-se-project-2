@@ -7,17 +7,32 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.ModelAndView;
 
+import edu.miu.cs.cs425.fairfieldlibrarywebapp.exception.BookCopyNotAvailableException;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.exception.CustomNotFoundException;
 
 @RestControllerAdvice
 public class WebAPIExceptionHandler {
-
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(CustomNotFoundException.class)
-    public Map<String, String> handleWebAPIException(CustomNotFoundException customNotFoundException) {
+    public ModelAndView handleWebAPIException(CustomNotFoundException customNotFoundException) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("errorMessage", customNotFoundException.getMessage());
-        return errorMap;
+        var modelAndView = new ModelAndView();
+        modelAndView.addObject("errorMap", errorMap);
+        modelAndView.setViewName("exception/general");
+        return modelAndView;
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(BookCopyNotAvailableException.class)
+    public ModelAndView handleWebAPIException(BookCopyNotAvailableException bookCopyNotAvailableException) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("errorMessage", bookCopyNotAvailableException.getMessage());
+        var modelAndView = new ModelAndView();
+        modelAndView.addObject("errorMap", errorMap);
+        modelAndView.setViewName("exception/general");
+        return modelAndView;
     }
 }

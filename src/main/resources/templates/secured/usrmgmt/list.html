@@ -4,19 +4,23 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layouts/master-layout}">
 <head>
-    <title>The eLibrary - a Spring Security Demo webapp - Users Management</title>
+    <title>Library - User</title>
 </head>
 <body>
     <div layout:fragment="content" style="padding-top:1em;" class="container">
         <div>
-            <span style="font-size: 2em; color: #32a5e7;">eLibrary<sup>&reg;</sup> Users List</span>
-            <span style="float:right;">
+            <h1>List of Users</h1>
+            <!-- <span style="font-size: 2em; color: #32a5e7;">eLibrary<sup>&reg;</sup> Users List</span> -->
+            <!-- <span style="float:right;">
                 <a class="btn btn-outline-success btn-lg" href="/library/secured/admin/usrmgmt/user/new">
                     <i class="fa-solid fa-user-plus"></i> Add a new User
                 </a>
-            </span>
+            </span> -->
         </div>
-<!--        <hr/>-->
+        <hr/>
+        <div>
+            <p><a href="/library/secured/admin/usrmgmt/user/new">Add New User</a></p>
+        </div>
         <div style="font-size: 1em; padding-top: 1em;">
             <table class="table table-striped">
                 <thead>

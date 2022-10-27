@@ -13,3 +13,12 @@ INSERT INTO users_roles VALUES (3, 3);
 INSERT INTO library_member_type VALUES (null, 21, 'basic', 0.25);
 INSERT INTO library_member_type VALUES (null, 21, 'staff', 0.10);
 INSERT INTO library_member_type VALUES (null, 42, 'senior', 0.05);
+
+INSERT INTO library_member VALUES (null, 'Kaka', 'Ricardo', '10001', '51312345', null, 1);
+INSERT INTO library_member VALUES (null, 'Messi', 'Lionel', '10002', '51312346', null, 2);
+INSERT INTO library_member VALUES (null, 'Ronaldo', 'Cr', '10003', '51312347', null, 3);
+
+INSERT INTO book VALUES (null, 'Leo Tolstoy', 3, '1111', 'A1', 'Penguin and Random House', 'War and Peace', 3);
+INSERT INTO book VALUES (null, 'F. Scott Fitzgerald', 5, '2222', 'A2', 'Harper Collins', 'The Great Gatsby', 5);
+INSERT INTO book VALUES (null, 'George Eliot', 2, '3333', 'A3', 'Macmillan', 'Middlemarch', 2);
+INSERT INTO book VALUES (null, 'Mark Twain', 3, '4444', 'A4', 'Simon and Schuster', 'The Adventures of Huckleberry Finn', 3);

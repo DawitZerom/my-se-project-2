@@ -18,7 +18,7 @@ import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.LibraryMemberTypeService;
 
 @Controller
 @RequestMapping(value = { "/library/secured/librarymembertype", "/fairfieldlibrary/librarymembertype",
-        "/library/secured/membertype" })
+        "/library/secured/membertype", "/library/secured/membershiptype" })
 public class LibraryMemberTypeController {
     @Autowired
     private LibraryMemberTypeService libraryMemberTypeService;

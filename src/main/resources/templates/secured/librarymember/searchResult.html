@@ -4,19 +4,24 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layouts/master-layout}">
 <head>
-    <title>Library - Services</title>
+    <title>Library - Books</title>
 </head>
 <body>
     <div layout:fragment="content" style="padding-top:1em;" class="container">
-    <h1>Search results for '[[${searchString}]]'</h1>
-    <hr/>
+      <span style="font-size: 2em;" class="primary-color">List of Library Members</span>
+      <span style="float:right;">
+        <a class="btn btn-outline-success btn-lg" href="/fairfieldlibrary/librarymember/new">
+          <i class="fa-solid"></i> Add New Member
+        </a>
+      </span>
+      <hr>
   <main>
     <section>
       <form action="/fairfieldlibrary/librarymember/search" method="get">
         <fieldset>
-          <legend>Search for Library Members</legend>
+          <legend>Search results for '[[${searchString}]]'</legend>
           <label>
-            You may search for library members
+            You may search by name, phone, etc.
           </label>
           <div>
             <input type="search" name="searchString" id="searchString" th:value="${searchString}" autofocus>
@@ -25,9 +30,7 @@
         </fieldset>
       </form>
     </section>
-    <div>
-      <p><a href="/fairfieldlibrary/librarymember/new">Add New Member</a></p>
-    </div>
+    <br>
     <table>
       <thead>
         <tr>

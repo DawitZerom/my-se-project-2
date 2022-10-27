@@ -32,4 +32,7 @@ table {
   table th, table td {
     border: 1px solid;
     padding: 1em;
-  }
+}
+.primary-color{
+    color: #DCA16A;
+}

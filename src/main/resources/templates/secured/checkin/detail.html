@@ -4,13 +4,13 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layouts/master-layout}">
 <head>
-    <title>Library - Services</title>
+    <title>Library - Check-in</title>
 </head>
 <body>
     <div layout:fragment="content" style="padding-top:1em;" class="container">
-      <h1>Check-in Book</h1>
-    <hr/>
   <main>
+    <span style="font-size: 2em;" class="primary-color">Check-in Book</span>
+    <hr/>
     <section>
       <div >
         <form method="post" action="/fairfieldlibrary/checkin/checkinbook" th:object="${checkoutRecord}">

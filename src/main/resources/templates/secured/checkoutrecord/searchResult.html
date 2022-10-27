@@ -4,17 +4,22 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layouts/master-layout}">
 <head>
-    <title>Library - Services</title>
+    <title>Library - Check-out</title>
 </head>
 <body>
     <div layout:fragment="content" style="padding-top:1em;" class="container">
-    <h1>Search results for '[[${searchString}]]'</h1>
-    <hr/>
+      <span style="font-size: 2em;" class="primary-color">List of Check-Outs</span>
+      <span style="float:right;">
+        <a class="btn btn-outline-success btn-lg" href="/fairfieldlibrary/checkoutrecord/new">
+          <i class="fa-solid"></i> Check-out Book
+        </a>
+      </span>
+      <hr>
   <main>
     <section>
       <form action="/fairfieldlibrary/checkoutrecord/search" method="get">
         <fieldset>
-          <legend>Search for Checkout Records</legend>
+          <legend>Search results for '[[${searchString}]]'</legend>
           <label>
             You may search by member name, book title, isbn, etc.
           </label>
@@ -25,9 +30,7 @@
         </fieldset>
       </form>
     </section>
-    <div>
-      <p><a href="/fairfieldlibrary/checkoutrecord/new">Check-out a book</a></p>
-    </div>
+    <br>
     <section>
       <table>
         <thead>

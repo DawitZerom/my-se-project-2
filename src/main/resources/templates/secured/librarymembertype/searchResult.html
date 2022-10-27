@@ -4,17 +4,22 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layouts/master-layout}">
 <head>
-    <title>Library - Services</title>
+    <title>Library - Membership Type</title>
 </head>
 <body>
     <div layout:fragment="content" style="padding-top:1em;" class="container">
-        <h1>Search results for '[[${searchString}]]'</h1>
-        <hr/>
   <main>
+    <span style="font-size: 2em;" class="primary-color">List of Membership Types</span>
+      <span style="float:right;">
+        <a class="btn btn-outline-success btn-lg" href="/fairfieldlibrary/librarymembertype/new">
+          <i class="fa-solid"></i> Add New Membership Type
+        </a>
+      </span>
+      <hr>
     <section>
       <form action="/fairfieldlibrary/librarymembertype/search" method="get">
         <fieldset>
-          <legend>Search for Membership Types</legend>
+          <legend>Search results for '[[${searchString}]]'</legend>
           <label>
             You may search by name.
           </label>
@@ -25,9 +30,7 @@
         </fieldset>
       </form>
     </section>
-    <div>
-      <p><a href="/fairfieldlibrary/librarymembertype/new">Add New Membership Type</a></p>
-    </div>
+    <br>
     <section>
     <table>
       <thead>
@@ -60,21 +63,6 @@
     </table>
   </section>
 
-  <!-- <section th:if="${libraryMemberTypes.totalPages>0}" style="margin-top: 1em;">
-    <table border="1" cellspacing="3" cellpadding="5">
-      <tbody>
-        <tr>
-          <th scope="row">Pages:</th>
-          <td th:each="pageCount : ${#numbers.sequence(1, libraryMemberTypes.totalPages)}">
-            <a th:if="${currentPageNo == pageCount-1}" th:href="@{/fairfieldlibrary/librarymembertype/list(pageNo=${pageCount-1})}"
-              th:text="${pageCount}" style="padding: 100%; background-color:lightcoral"></a>
-            <a th:if="${currentPageNo != pageCount-1}" th:href="@{/fairfieldlibrary/librarymembertype/list(pageNo=${pageCount-1})}"
-              th:text="${pageCount}"></a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </section> -->
   </main>
   </div>
 </body>

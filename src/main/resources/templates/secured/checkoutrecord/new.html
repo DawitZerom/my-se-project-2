@@ -4,12 +4,13 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layouts/master-layout}">
 <head>
-    <title>Library - Services</title>
+    <title>Library - Check-out</title>
 </head>
 <body>
     <div layout:fragment="content" style="padding-top:1em;" class="container">
-      <h1>New Checkout Record</h1>
-    <hr/>
+
+      <span style="font-size: 2em;" class="primary-color">New Checkout Record</span>
+      <hr>
   <main>
     <div th:if="${errorMessage}">
       <h3 th:text="${errorMessage}" style="color:red;"></h3>

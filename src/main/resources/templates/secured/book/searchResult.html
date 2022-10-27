@@ -4,19 +4,25 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layouts/master-layout}">
 <head>
-    <title>Library - Services</title>
+    <title>Library - Books</title>
 </head>
 <body>
     <div layout:fragment="content" style="padding-top:1em;" class="container">
-    <h1> Search results for '[[${searchString}]]'</h1>
-    <hr/>
+
   <main>
+    <span style="font-size: 2em;" class="primary-color">List of Books</span>
+    <span style="float:right;">
+                <a class="btn btn-outline-success btn-lg" href="/fairfieldlibrary/book/new">
+                    <i class="fa-solid"></i> Add New Book
+                </a>
+    </span>
+    <hr/>
     <section>
       <form action="/fairfieldlibrary/book/search" method="get">
         <fieldset>
-          <legend>Search for Books</legend>
+          <legend>Search results for '[[${searchString}]]'</legend>
           <label>
-            You may search for books
+            You may search by title, isbn, etc.
           </label>
           <div>
             <input type="search" name="searchString" id="searchString" th:value="${searchString}" autofocus>
@@ -25,40 +31,40 @@
         </fieldset>
       </form>
     </section>
-    <div>
-      <p><a href="/fairfieldlibrary/book/new">Add New Book</a></p>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Title</th>
-          <th>ISBN</th>
-          <th>Author</th>
-          <th>Publisher</th>
-          <th>Location</th>
-          <th>*</th>
-          <th>*</th>
-          <th>*</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="book, counter : ${books}">
-          <th th:text="${counter.count}+${'.'}"></th>
-          <td th:text="${book.title}"></td>
-          <td th:text="${book.isbn}"></td>
-          <td th:text="${book.author}"></td>
-          <td th:text="${book.publisher}"></td>
-          <td th:text="${book.location}"></td>
-          <td><a th:href="@{'/fairfieldlibrary/checkoutrecord/new/book/{bookId}'(bookId=${book.bookId})}">Checkout</a></td>
-          <td><a th:href="@{'/fairfieldlibrary/book/edit/{bookId}'(bookId=${book.bookId})}">Edit</a></td>
-          <td><a th:href="@{'/fairfieldlibrary/book/delete/{bookId}'(bookId=${book.bookId})}">Delete</a></td>
-        </tr>
-        <tr th:if="${books.isEmpty()}">
-          <td colspan="9" th:align="center">No books found</td>
-        </tr>
-      </tbody>
-    </table>
+    <br>
+    <section>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>ISBN</th>
+            <th>Author</th>
+            <th>Publisher</th>
+            <th>Location</th>
+            <th>*</th>
+            <th>*</th>
+            <th>*</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="book, counter : ${books}">
+            <th th:text="${counter.count}+${'.'}"></th>
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.isbn}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.publisher}"></td>
+            <td th:text="${book.location}"></td>
+            <td><a th:href="@{'/fairfieldlibrary/checkoutrecord/new/book/{bookId}'(bookId=${book.bookId})}">Checkout</a></td>
+            <td><a th:href="@{'/fairfieldlibrary/book/edit/{bookId}'(bookId=${book.bookId})}">Edit</a></td>
+            <td><a th:href="@{'/fairfieldlibrary/book/delete/{bookId}'(bookId=${book.bookId})}">Delete</a></td>
+          </tr>
+          <tr th:if="${books.isEmpty()}">
+            <td colspan="9" th:align="center">No books found</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   </main>
   </div>
 </body>

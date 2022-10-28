@@ -52,7 +52,7 @@ public class LibraryMemberTypeController {
             return modelAndView;
         }
         libraryMemberTypeService.saveNewLibraryMemberType(libraryMemberType);
-        modelAndView.setViewName("redirect:/library/secured/librarymembertype/list");
+        modelAndView.setViewName("redirect:/library/secured/membertype/list");
         return modelAndView;
     }
 
@@ -76,7 +76,7 @@ public class LibraryMemberTypeController {
             return modelAndView;
         }
         libraryMemberTypeService.updateLibraryMemberType(libraryMemberType);
-        modelAndView.setViewName("redirect:/library/secured/librarymembertype/list");
+        modelAndView.setViewName("redirect:/library/secured/membertype/list");
         return modelAndView;
     }
 
@@ -84,14 +84,14 @@ public class LibraryMemberTypeController {
     public ModelAndView updateMembershipType(@PathVariable Integer libraryMemberTypeId) {
         var modelAndView = new ModelAndView();
         libraryMemberTypeService.deleteLibraryMemberType(libraryMemberTypeId);
-        modelAndView.setViewName("redirect:/library/secured/librarymembertype/list");
+        modelAndView.setViewName("redirect:/library/secured/membertype/list");
         return modelAndView;
     }
 
     @GetMapping(value = { "/search" })
     public ModelAndView searchMembershipType(@RequestParam String searchString) {
         if (searchString.isBlank()) {
-            return new ModelAndView("redirect:/library/secured/librarymembertype/list");
+            return new ModelAndView("redirect:/library/secured/membertype/list");
         }
         var modelAndView = new ModelAndView();
         var libraryMemberTypes = libraryMemberTypeService.searchLibraryMemberTypes(searchString);

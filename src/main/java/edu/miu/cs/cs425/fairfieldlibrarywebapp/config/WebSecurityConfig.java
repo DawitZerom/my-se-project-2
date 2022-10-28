@@ -47,19 +47,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/resources/static/**", "/images/**", "/css/**").permitAll()
                 .antMatchers("/", "/library", "/fairfieldlibrary", "/library/public/**").permitAll()
-                // .antMatchers("/library/secured/service/**", "/library/secured/home/**",
-                // "/library/secured/book/list")
-                // .hasRole("LIBRARIAN")
-                // .antMatchers("/library/secured/service/**", "/library/secured/home/**",
-                // "/library/secured/book/list",
-                // "/library/secured/book/search/**")
-                // .hasRole("MEMBER")
                 .antMatchers("/library/secured/service/**", "/library/secured/home/**")
                 .hasAnyRole("ADMIN", "LIBRARIAN", "MEMBER")
                 .antMatchers("/library/secured/book/new", "/library/secured/book/update")
                 .hasAnyRole("ADMIN", "LIBRARIAN")
                 .antMatchers("/library/secured/book/list", "/library/secured/book/search")
                 .hasAnyRole("ADMIN", "LIBRARIAN", "MEMBER")
+                .antMatchers("/library/secured/checkout/**", "/library/secured/checkin/**",
+                        "/library/secured/member/**", "/library/secured/membertype/**", "/library/secured/book/**")
+                .hasAnyRole("ADMIN", "LIBRARIAN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

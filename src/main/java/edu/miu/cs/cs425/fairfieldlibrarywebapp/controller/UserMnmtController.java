@@ -29,7 +29,7 @@ public class UserMnmtController {
     public ModelAndView displayUsersList() {
         ModelAndView mav = new ModelAndView();
         mav.addObject("users", userService.getAllUsers());
-        mav.setViewName("secured/usrmgmt/list");
+        mav.setViewName("secured/admin/usrmgmt/list");
         return mav;
     }
 
@@ -39,7 +39,7 @@ public class UserMnmtController {
         User user = new User();
         mav.addObject("user", user);
         mav.addObject("roles", roleService.getAllRoles());
-        mav.setViewName("secured/usrmgmt/newuser");
+        mav.setViewName("secured/admin/usrmgmt/newuser");
         return mav;
     }
 
@@ -48,7 +48,7 @@ public class UserMnmtController {
             Model model, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
-            return "secured/usrmgmt/newuser";
+            return "secured/admin/usrmgmt/newuser";
         }
         userService.saveUser(user);
         return "redirect:/library/secured/admin/usrmgmt/list";
@@ -61,9 +61,9 @@ public class UserMnmtController {
             user.setPassword("");
             model.addAttribute("user", user);
             model.addAttribute("roles", roleService.getAllRoles());
-            return "secured/usrmgmt/edituser";
+            return "secured/admin/usrmgmt/edituser";
         }
-        return "secured/usrmgmt/list";
+        return "secured/admin/usrmgmt/list";
     }
 
     @PostMapping(value = { "/usrmgmt/user/edit" })
@@ -71,7 +71,7 @@ public class UserMnmtController {
             Model model, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
-            return "secured/usrmgmt/edituser";
+            return "secured/admin/usrmgmt/edituser";
         }
         user = userService.saveUser(user);
         return "redirect:/library/secured/admin/usrmgmt/list";

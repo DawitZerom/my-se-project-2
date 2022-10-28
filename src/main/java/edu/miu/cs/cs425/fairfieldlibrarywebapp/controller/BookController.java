@@ -50,7 +50,7 @@ public class BookController {
             return modelAndView;
         }
         bookService.saveNewBook(book);
-        modelAndView.setViewName("redirect:/library/book/list");
+        modelAndView.setViewName("redirect:/library/secured/book/list");
         return modelAndView;
     }
 
@@ -59,7 +59,7 @@ public class BookController {
         var modelAndView = new ModelAndView();
         var book = bookService.findBookById(bookId);
         if (book == null) {
-            modelAndView.setViewName("redirect:/library/book/list");
+            modelAndView.setViewName("redirect:/library/secured/book/list");
             return modelAndView;
         }
         modelAndView.addObject("book", book);
@@ -77,7 +77,7 @@ public class BookController {
             return modelAndView;
         }
         bookService.updateBook(book);
-        modelAndView.setViewName("redirect:/library/book/list");
+        modelAndView.setViewName("redirect:/library/secured/book/list");
         return modelAndView;
     }
 
@@ -85,14 +85,14 @@ public class BookController {
     public ModelAndView deleteBook(@PathVariable Integer bookId) {
         var modelAndView = new ModelAndView();
         bookService.deleteBook(bookId);
-        modelAndView.setViewName("redirect:/library/book/list");
+        modelAndView.setViewName("redirect:/library/secured/book/list");
         return modelAndView;
     }
 
     @GetMapping(value = { "/search" })
     public ModelAndView searchBooks(@RequestParam String searchString) {
         if (searchString.isBlank()) {
-            return new ModelAndView("redirect:/library/book/list");
+            return new ModelAndView("redirect:/library/secured/book/list");
         }
         var modelAndView = new ModelAndView();
         var books = bookService.searchBooks(searchString);

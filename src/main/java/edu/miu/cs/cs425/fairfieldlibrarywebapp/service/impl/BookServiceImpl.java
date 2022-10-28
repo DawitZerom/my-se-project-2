@@ -31,6 +31,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book saveNewBook(Book book) {
+        book.setAvailableCopy(book.getTotalCopy());
         return bookRepository.save(book);
     }
 

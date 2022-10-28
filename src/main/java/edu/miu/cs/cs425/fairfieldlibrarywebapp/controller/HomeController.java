@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = { "/", "", "/library", "/fairfieldlibrary" })
 public class HomeController {
 
-    @GetMapping(value = { "", "/public/home", "/home" })
+    @GetMapping(value = { "", "/public/home", "/home", "/secured/home" })
     public String displayHomepage() {
         return "public/index";
     }
@@ -16,11 +16,6 @@ public class HomeController {
     @GetMapping(value = { "/public/about", "/about" })
     public String displayAboutpage() {
         return "public/about";
-    }
-
-    @GetMapping(value = { "/secured/home" })
-    public String displaySecuredHomepage() {
-        return "secured/index";
     }
 
     @GetMapping(value = { "/secured/service" })

@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.exception.BookCopyNotAvailableException;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.exception.CustomNotFoundException;
+import edu.miu.cs.cs425.fairfieldlibrarywebapp.exception.MemberCannotCheckoutException;
 
 @RestControllerAdvice
 public class WebAPIExceptionHandler {
@@ -30,6 +31,17 @@ public class WebAPIExceptionHandler {
     public ModelAndView handleWebAPIException(BookCopyNotAvailableException bookCopyNotAvailableException) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("errorMessage", bookCopyNotAvailableException.getMessage());
+        var modelAndView = new ModelAndView();
+        modelAndView.addObject("errorMap", errorMap);
+        modelAndView.setViewName("exception/general");
+        return modelAndView;
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(MemberCannotCheckoutException.class)
+    public ModelAndView handleWebAPIException(MemberCannotCheckoutException memberCannotCheckoutException) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("errorMessage", memberCannotCheckoutException.getMessage());
         var modelAndView = new ModelAndView();
         modelAndView.addObject("errorMap", errorMap);
         modelAndView.setViewName("exception/general");

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.dto.CheckoutRecordDTO;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.exception.BookCopyNotAvailableException;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.exception.CustomNotFoundException;
+import edu.miu.cs.cs425.fairfieldlibrarywebapp.exception.MemberCannotCheckoutException;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.model.CheckoutRecord;
 
 public interface CheckoutRecordService {
@@ -18,7 +19,7 @@ public interface CheckoutRecordService {
     CheckoutRecord findCheckoutRecordById(Integer checkoutRecordId);
 
     CheckoutRecord saveNewCheckoutRecord(CheckoutRecordDTO checkoutRecordDTO)
-            throws CustomNotFoundException, BookCopyNotAvailableException;
+            throws CustomNotFoundException, BookCopyNotAvailableException, MemberCannotCheckoutException;
 
     CheckoutRecord updateCheckoutRecord(CheckoutRecordDTO checkoutRecordDTO) throws CustomNotFoundException;
 

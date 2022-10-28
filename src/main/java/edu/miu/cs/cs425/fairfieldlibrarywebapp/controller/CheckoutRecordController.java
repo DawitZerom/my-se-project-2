@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.dto.CheckoutRecordDTO;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.exception.BookCopyNotAvailableException;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.exception.CustomNotFoundException;
+import edu.miu.cs.cs425.fairfieldlibrarywebapp.exception.MemberCannotCheckoutException;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.BookService;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.CheckoutRecordService;
 
@@ -58,7 +59,8 @@ public class CheckoutRecordController {
 
     @PostMapping(value = { "/new" })
     public ModelAndView addNewCheckoutRecord(@Valid @ModelAttribute CheckoutRecordDTO checkoutRecordDTO,
-            BindingResult bindingResult) throws CustomNotFoundException, BookCopyNotAvailableException {
+            BindingResult bindingResult)
+            throws CustomNotFoundException, BookCopyNotAvailableException, MemberCannotCheckoutException {
         var modelAndView = new ModelAndView();
 
         if (bindingResult.hasErrors()) {
@@ -67,14 +69,15 @@ public class CheckoutRecordController {
             modelAndView.setViewName("secured/librarian/checkout/new");
             return modelAndView;
         }
-        var res = checkoutRecordService.saveNewCheckoutRecord(checkoutRecordDTO);
-
-        if (res == null) {
-            modelAndView.addObject("checkoutRecordDTO", checkoutRecordDTO);
-            modelAndView.addObject("errorMessage", "This member cannot checkout another book");
-            modelAndView.setViewName("secured/librarian/checkout/new");
-            return modelAndView;
-        }
+        // var res = checkoutRecordService.saveNewCheckoutRecord(checkoutRecordDTO);
+        // if (res == null) {
+        // modelAndView.addObject("checkoutRecordDTO", checkoutRecordDTO);
+        // modelAndView.addObject("errorMessage", "This member cannot checkout another
+        // book");
+        // modelAndView.setViewName("secured/librarian/checkout/new");
+        // return modelAndView;
+        // }
+        checkoutRecordService.saveNewCheckoutRecord(checkoutRecordDTO);
         modelAndView.setViewName("redirect:/library/secured/checkout/list");
         return modelAndView;
     }

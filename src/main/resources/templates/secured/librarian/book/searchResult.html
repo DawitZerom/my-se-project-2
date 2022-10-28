@@ -11,10 +11,10 @@
 
   <main>
     <span style="font-size: 2em;" class="primary-color">List of Books</span>
-    <span style="float:right;">
-                <a class="btn btn-outline-success btn-lg" href="/library/secured/book/new">
-                    <i class="fa-solid"></i> Add New Book
-                </a>
+    <span sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')" style="float:right;">
+      <a class="btn btn-outline-success btn-lg" href="/library/secured/book/new">
+        <i class="fa-solid"></i> Add New Book
+      </a>
     </span>
     <hr/>
     <section>
@@ -42,9 +42,11 @@
             <th>Author</th>
             <th>Publisher</th>
             <th>Location</th>
-            <th>*</th>
-            <th>*</th>
-            <th>*</th>
+            <th>Total Copy</th>
+            <th>Available Copy</th>
+            <th sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')">*</th>
+            <th sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')">*</th>
+            <th sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')">*</th>
           </tr>
         </thead>
         <tbody>
@@ -55,12 +57,19 @@
             <td th:text="${book.author}"></td>
             <td th:text="${book.publisher}"></td>
             <td th:text="${book.location}"></td>
-            <td><a th:href="@{'/library/secured/checkout/new/book/{bookId}'(bookId=${book.bookId})}">Checkout</a></td>
-            <td><a th:href="@{'/library/secured/book/edit/{bookId}'(bookId=${book.bookId})}">Edit</a></td>
-            <td><a th:href="@{'/library/secured/book/delete/{bookId}'(bookId=${book.bookId})}">Delete</a></td>
+            <td th:text="${book.totalCopy}"></td>
+            <td th:text="${book.availableCopy}"></td>
+            <td sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')" th:if="${book.availableCopy} > 0">
+              <a th:href="@{'/library/secured/checkout/new/book/{bookId}'(bookId=${book.bookId})}">Checkout</a>
+            </td>
+            <td sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')" th:unless="${book.availableCopy} > 0">
+              <span style="color: grey;">Checkout</span>
+            </td>
+            <td sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')"><a th:href="@{'/library/secured/book/edit/{bookId}'(bookId=${book.bookId})}">Edit</a></td>
+            <td sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')"><a th:href="@{'/library/secured/book/delete/{bookId}'(bookId=${book.bookId})}">Delete</a></td>
           </tr>
           <tr th:if="${books.isEmpty()}">
-            <td colspan="9" th:align="center">No books found</td>
+            <td colspan="11" th:align="center">No books found</td>
           </tr>
         </tbody>
       </table>

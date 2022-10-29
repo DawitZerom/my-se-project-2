@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.miu.cs.cs425.fairfieldlibrarywebapp.model.Address;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.model.LibraryMember;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.LibraryMemberService;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.LibraryMemberTypeService;
@@ -40,6 +41,7 @@ public class LibraryMemberController {
     public ModelAndView displayNewLibrarymemberForm() {
         var modelAndView = new ModelAndView();
         modelAndView.addObject("libraryMember", new LibraryMember());
+        modelAndView.addObject("address", new Address());
         modelAndView.addObject("libraryMemberTypes", libraryMemberTypeService.getLibraryMemberTypes());
         modelAndView.setViewName("secured/librarian/librarymember/new");
         return modelAndView;
@@ -51,6 +53,8 @@ public class LibraryMemberController {
         var modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("libraryMember", libraryMember);
+            modelAndView.addObject("libraryMemberTypes", libraryMemberTypeService.getLibraryMemberTypes());
+            modelAndView.addObject("address", libraryMember.getAddress());
             modelAndView.addObject("errors", bindingResult.getAllErrors());
             modelAndView.setViewName("secured/librarian/librarymember/new");
             return modelAndView;
@@ -69,6 +73,8 @@ public class LibraryMemberController {
             return modelAndView;
         }
         modelAndView.addObject("libraryMember", libraryMember);
+        modelAndView.addObject("address",
+                libraryMember.getAddress() == null ? new Address() : libraryMember.getAddress());
         modelAndView.addObject("libraryMemberTypes", libraryMemberTypeService.getLibraryMemberTypes());
         modelAndView.setViewName("secured/librarian/librarymember/edit");
         return modelAndView;
@@ -80,6 +86,7 @@ public class LibraryMemberController {
         var modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("libraryMember", libraryMember);
+            modelAndView.addObject("address", libraryMember.getAddress());
             modelAndView.addObject("errors", bindingResult.getAllErrors());
             modelAndView.setViewName("secured/librarian/librarymember/edit");
             return modelAndView;

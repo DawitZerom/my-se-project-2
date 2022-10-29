@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layouts/master-layout}">
 <head>
-    <title>Library - Services</title>
+    <title>Library - Member</title>
 </head>
 <body>
     <div layout:fragment="content" style="padding-top:1em;" class="container">
@@ -23,41 +23,71 @@
             <label>Member Number*</label>
           </div>
           <div>
-            <span th:if="${#fields.hasErrors('memberNumber')}" th:errors="*{memberNumber}" style="color:red;"></span>
             <input name="memberNumber" type="text" th:value="${libraryMember.memberNumber}" autofocus>
+            <span th:if="${#fields.hasErrors('memberNumber')}" th:errors="*{memberNumber}" style="color:red;"></span>
           </div>
           <div>
             <label>Firstname*</label>
           </div>
           <div>
-            <span th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" style="color:red;"></span>
             <input name="firstname" type="text" th:value="${libraryMember.firstname}" autofocus>
+            <span th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" style="color:red;"></span>
           </div>
           <div>
             <label>Lastname*</label>
           </div>
           <div>
-              <span th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" style="color:red;"></span>
               <input name="lastname" type="text" th:value="${libraryMember.lastname}" autofocus>
+              <span th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" style="color:red;"></span>
           </div>
           <div>
             <label>Phone*</label>
           </div>
           <div>
-              <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" style="color:red;"></span>
               <input name="phone" type="text" th:value="${libraryMember.phone}" autofocus>
+              <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" style="color:red;"></span>
           </div>
         </fieldset>
+        <br>
         <fieldset>
-          <div>
-            <label>Member Types</label>
-          </div>
+          <legend>Member Types</legend>
           <label th:each="type : ${libraryMemberTypes}" style="padding-right: 4em;">
           <input style="margin-right: .5em;"
               name="libraryMemberType" type="radio"
               th:value="${type.libraryMemberTypeId}" th:text="${#strings.capitalize(type.name)}"
-              th:field="*{libraryMemberType}">
+              th:field="*{libraryMemberType}" required>
           </label>
+        </fieldset>
+        <fieldset>
+          <legend>Address</legend>
+          <div>
+            <label>Street*</label>
+          </div>
+          <div>
+            <input name="address.street" type="text" th:value="${address.street}" autofocus required>
+            <span th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}" style="color:red;"></span>
+          </div>
+          <div>
+            <label>City*</label>
+          </div>
+          <div>
+            <input name="address.city" type="text" th:value="${address.city}" autofocus required>
+            <span th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}" style="color:red;"></span>
+          </div>
+          <div>
+            <label>State*</label>
+          </div>
+          <div>
+            <input name="address.state" type="text" th:value="${address.state}" autofocus required>
+            <span th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}" style="color:red;"></span>
+          </div>
+          <div>
+            <label>Zip*</label>
+          </div>
+          <div>
+            <input name="address.zip" type="text" th:value="${address.zip}" autofocus required>
+            <span th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}" style="color:red;"></span>
+          </div>
         </fieldset>
         <div style="margin-top: 1em;">
           <a class="std-lnk-btn" href="/library/secured/librarymember/list">Cancel</a>

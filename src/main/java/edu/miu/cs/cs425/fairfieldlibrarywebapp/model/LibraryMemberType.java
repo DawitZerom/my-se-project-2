@@ -1,5 +1,6 @@
 package edu.miu.cs.cs425.fairfieldlibrarywebapp.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,9 +23,12 @@ public class LibraryMemberType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer libraryMemberTypeId;
     @NotBlank
+    @Column(nullable = false)
     private String name;
     @NotNull
+    @Column(nullable = false)
     private Integer maxLengthBorrowBook;
     @NotNull
-    private Double overdueFee;
+    @Column(nullable = false)
+    private Double overdueFee = 0.0;
 }

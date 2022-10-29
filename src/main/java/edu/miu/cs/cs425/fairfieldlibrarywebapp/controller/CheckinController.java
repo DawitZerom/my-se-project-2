@@ -128,4 +128,13 @@ public class CheckinController {
         modelAndView.setViewName("secured/librarian/checkin/searchResult");
         return modelAndView;
     }
+
+    @GetMapping(value = { "/delete/{checkoutRecordId}" })
+    public ModelAndView deleteCheckoutRecord(@PathVariable Integer checkoutRecordId) {
+        var modelAndView = new ModelAndView();
+        checkinService.deleteCheckin(checkoutRecordId);
+        modelAndView.setViewName("redirect:/library/secured/checkin/list");
+        return modelAndView;
+    }
+
 }

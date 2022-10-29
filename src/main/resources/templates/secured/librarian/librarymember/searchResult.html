@@ -40,6 +40,7 @@
           <th>Lastname</th>
           <th>Phone</th>
           <th>Membership</th>
+          <th>Address</th>
           <th>*</th>
           <th>*</th>
         </tr>
@@ -52,11 +53,17 @@
           <td th:text="${libraryMember.Lastname}"></td>
           <td th:text="${libraryMember.Phone}"></td>
           <td th:text="${libraryMember.libraryMemberType.name}"></td>
+          <td th:if="${libraryMember.address}">
+            <span th:text="${libraryMember.address.street}"></span>, 
+            <span th:text="${libraryMember.address.city}"></span>,
+            <span th:text="${libraryMember.address.state}"></span> <span th:text="${libraryMember.address.zip}"></span>
+          </td>
+          <td th:unless="${libraryMember.address}"></td>
           <td><a th:href="@{'/library/secured/librarymember/edit/{libraryMemberId}'(libraryMemberId=${libraryMember.libraryMemberId})}">Edit</a></td>
           <td><a th:href="@{'/library/secured/librarymember/delete/{libraryMemberId}'(libraryMemberId=${libraryMember.libraryMemberId})}">Delete</a></td>
         </tr>
         <tr th:if="${libraryMembers.isEmpty()}">
-          <td colspan="8" th:align="center">No members found</td>
+          <td colspan="9" th:align="center">No members found</td>
         </tr>
       </tbody>
     </table>

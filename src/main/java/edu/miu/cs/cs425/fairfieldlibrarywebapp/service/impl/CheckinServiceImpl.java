@@ -75,4 +75,9 @@ public class CheckinServiceImpl implements CheckinService {
                         PageRequest.of(pageNo, 2, Direction.DESC, "checkinDate"));
     }
 
+    @Override
+    public void deleteCheckin(Integer checkoutRecordid) {
+        checkoutRecordRepository.deleteById(checkoutRecordid);
+    }
+
 }

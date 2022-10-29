@@ -1,5 +1,6 @@
 package edu.miu.cs.cs425.fairfieldlibrarywebapp.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,15 +26,18 @@ public class LibraryMember {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer libraryMemberId;
     @NotBlank(message = "Member number cannot be blank")
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String memberNumber;
     @NotBlank(message = "Firstname cannot be blank")
+    @Column(nullable = false)
     private String firstname;
     @NotBlank(message = "Lastname cannot be blank")
+    @Column(nullable = false)
     private String lastname;
     @NotBlank(message = "Phone cannot be blank")
+    @Column(nullable = false)
     private String phone;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
     @ManyToOne

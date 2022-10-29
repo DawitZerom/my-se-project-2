@@ -24,43 +24,43 @@
             <label>Title*</label>
           </div>
           <div>
-            <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red;"></span>
             <input name="title" type="text" th:value="${book.title}" autofocus>
+            <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red;"></span>
           </div>
           <div>
             <label>ISBN*</label>
           </div>
           <div>
-              <span th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}" style="color:red;"></span>
               <input name="isbn" type="text" th:value="${book.isbn}" autofocus>
+              <span th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}" style="color:red;"></span>
           </div>
           <div>
               <label>Author*</label>
           </div>
           <div>
-            <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}" style="color:red;"></span>
             <input name="author" type="text" th:value="${book.author}" autofocus>
+            <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}" style="color:red;"></span>
           </div>
           <div>
             <label>Publisher</label>
           </div>
           <div>
-            <span th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}" style="color:red;"></span>
             <input name="publisher" type="text" th:value="${book.publisher}" autofocus>
+            <span th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}" style="color:red;"></span>
           </div>
           <div>
             <label>Location</label>
           </div>
           <div>
-            <span th:if="${#fields.hasErrors('location')}" th:errors="*{location}" style="color:red;"></span>
             <input name="location" type="text" th:value="${book.location}" autofocus>
+            <span th:if="${#fields.hasErrors('location')}" th:errors="*{location}" style="color:red;"></span>
           </div>
           <div>
             <label>Total Copy</label>
           </div>
           <div>
-            <span th:if="${#fields.hasErrors('totalCopy')}" th:errors="*{totalCopy}" style="color:red;"></span>
             <input name="totalCopy" type="number" th:value="${book.totalCopy}" autofocus>
+            <span th:if="${#fields.hasErrors('totalCopy')}" th:errors="*{totalCopy}" style="color:red;"></span>
           </div>
         </fieldset>
         <div style="margin-top: 1em;">

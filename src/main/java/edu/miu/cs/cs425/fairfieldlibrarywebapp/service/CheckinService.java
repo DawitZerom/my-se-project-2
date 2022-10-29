@@ -21,4 +21,6 @@ public interface CheckinService {
     CheckoutRecord updateCheckin(CheckinDTO checkinDTO) throws CustomNotFoundException;
 
     Page<CheckoutRecord> searchCheckins(String searchString, int pageNo);
+
+    void deleteCheckin(Integer checkoutRecordid);
 }

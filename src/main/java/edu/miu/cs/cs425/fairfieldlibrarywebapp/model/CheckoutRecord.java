@@ -2,6 +2,8 @@
 package edu.miu.cs.cs425.fairfieldlibrarywebapp.model;
 
 import java.time.LocalDate;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +26,9 @@ public class CheckoutRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer checkoutRecordId;
 
+    @Column(nullable = false)
     private LocalDate checkoutDate;
+    @Column(nullable = false)
     private LocalDate dueDate;
     private String isCheckedIn;
     private LocalDate checkinDate;

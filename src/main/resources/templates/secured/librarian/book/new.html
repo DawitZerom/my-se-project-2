@@ -4,11 +4,11 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layouts/master-layout}">
 <head>
-    <title>Library - Books</title>
+  <title>Library - Books</title>
 </head>
 <body>
-    <div layout:fragment="content" style="padding-top:1em;" class="container">
-    
+<div layout:fragment="content" style="padding-top:1em;" class="container">
+
   <main>
     <span style="font-size: 2em;" class="primary-color">Add New Book</span>
     <hr/>
@@ -24,53 +24,53 @@
             <label>Title*</label>
           </div>
           <div>
-            <input name="title" type="text" th:value="${book.title}" autofocus>
             <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red;"></span>
+            <input name="title" type="text" th:value="${book.title}" autofocus>
           </div>
           <div>
             <label>ISBN*</label>
           </div>
           <div>
-              <input name="isbn" type="text" th:value="${book.isbn}" autofocus>
-              <span th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}" style="color:red;"></span>
+            <span th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}" style="color:red;"></span>
+            <input name="isbn" type="text" th:value="${book.isbn}" autofocus>
           </div>
           <div>
-              <label>Author*</label>
+            <label>Author*</label>
           </div>
           <div>
-              <input name="author" type="text" th:value="${book.author}" autofocus>
-              <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}" style="color:red;"></span>
+            <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}" style="color:red;"></span>
+            <input name="author" type="text" th:value="${book.author}" autofocus>
           </div>
           <div>
-            <label>Publisher*</label>
+            <label>Publisher</label>
           </div>
           <div>
-            <input name="publisher" type="text" th:value="${book.publisher}" autofocus>
             <span th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}" style="color:red;"></span>
+            <input name="publisher" type="text" th:value="${book.publisher}" autofocus>
           </div>
           <div>
             <label>Location</label>
           </div>
           <div>
-            <input name="location" type="text" th:value="${book.location}" autofocus>
             <span th:if="${#fields.hasErrors('location')}" th:errors="*{location}" style="color:red;"></span>
+            <input name="location" type="text" th:value="${book.location}" autofocus>
           </div>
           <div>
             <label>Total Copy</label>
           </div>
           <div>
-            <input name="totalCopy" type="number" th:value="${book.totalCopy}" autofocus>
             <span th:if="${#fields.hasErrors('totalCopy')}" th:errors="*{totalCopy}" style="color:red;"></span>
+            <input name="totalCopy" type="number" th:value="${book.totalCopy}" autofocus>
           </div>
         </fieldset>
         <div style="margin-top: 1em;">
           <a class="std-lnk-btn" href="/library/secured/book/list">Cancel</a>
-          <input class="std-btn" type="reset" value="Reset">
-          <input class="std-btn" type="submit" value="Add Book">
+          <input class="btn btn-primary" type="reset" value="Reset">
+          <input class="btn btn-primary" type="submit" value="Add Book">
         </div>
       </form>
     </div>
   </main>
-  </div>
+</div>
 </body>
 </html>

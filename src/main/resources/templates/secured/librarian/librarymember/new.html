@@ -4,10 +4,10 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layouts/master-layout}">
 <head>
-    <title>Library - Member</title>
+  <title>Library - Services</title>
 </head>
 <body>
-    <div layout:fragment="content" style="padding-top:1em;" class="container">
+<div layout:fragment="content" style="padding-top:1em;" class="container">
   <main>
     <span style="font-size: 2em;" class="primary-color">Add New Library Member</span>
     <hr/>
@@ -23,80 +23,50 @@
             <label>Member Number*</label>
           </div>
           <div>
-            <input name="memberNumber" type="text" th:value="${libraryMember.memberNumber}" autofocus>
             <span th:if="${#fields.hasErrors('memberNumber')}" th:errors="*{memberNumber}" style="color:red;"></span>
+            <input name="memberNumber" type="text" th:value="${libraryMember.memberNumber}" autofocus>
           </div>
           <div>
             <label>Firstname*</label>
           </div>
           <div>
-            <input name="firstname" type="text" th:value="${libraryMember.firstname}" autofocus>
             <span th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" style="color:red;"></span>
+            <input name="firstname" type="text" th:value="${libraryMember.firstname}" autofocus>
           </div>
           <div>
             <label>Lastname*</label>
           </div>
           <div>
-              <input name="lastname" type="text" th:value="${libraryMember.lastname}" autofocus>
-              <span th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" style="color:red;"></span>
+            <span th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" style="color:red;"></span>
+            <input name="lastname" type="text" th:value="${libraryMember.lastname}" autofocus>
           </div>
           <div>
             <label>Phone*</label>
           </div>
           <div>
-              <input name="phone" type="text" th:value="${libraryMember.phone}" autofocus>
-              <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" style="color:red;"></span>
+            <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" style="color:red;"></span>
+            <input name="phone" type="text" th:value="${libraryMember.phone}" autofocus>
           </div>
         </fieldset>
-        <br>
         <fieldset>
-          <legend>Member Types</legend>
+          <div>
+            <label>Member Types</label>
+          </div>
           <label th:each="type : ${libraryMemberTypes}" style="padding-right: 4em;">
-          <input style="margin-right: .5em;"
-              name="libraryMemberType" type="radio"
-              th:value="${type.libraryMemberTypeId}" th:text="${#strings.capitalize(type.name)}"
-              th:field="*{libraryMemberType}" required>
+            <input style="margin-right: .5em;"
+                   name="libraryMemberType" type="radio"
+                   th:value="${type.libraryMemberTypeId}" th:text="${#strings.capitalize(type.name)}"
+                   th:field="*{libraryMemberType}">
           </label>
-        </fieldset>
-        <fieldset>
-          <legend>Address</legend>
-          <div>
-            <label>Street*</label>
-          </div>
-          <div>
-            <input name="address.street" type="text" th:value="${address.street}" autofocus required>
-            <span th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}" style="color:red;"></span>
-          </div>
-          <div>
-            <label>City*</label>
-          </div>
-          <div>
-            <input name="address.city" type="text" th:value="${address.city}" autofocus required>
-            <span th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}" style="color:red;"></span>
-          </div>
-          <div>
-            <label>State*</label>
-          </div>
-          <div>
-            <input name="address.state" type="text" th:value="${address.state}" autofocus required>
-            <span th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}" style="color:red;"></span>
-          </div>
-          <div>
-            <label>Zip*</label>
-          </div>
-          <div>
-            <input name="address.zip" type="text" th:value="${address.zip}" autofocus required>
-            <span th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}" style="color:red;"></span>
-          </div>
         </fieldset>
         <div style="margin-top: 1em;">
           <a class="std-lnk-btn" href="/library/secured/librarymember/list">Cancel</a>
-          <input class="std-btn" type="reset" value="Reset">
-          <input class="std-btn" type="submit" value="Add Member">
+          <input class="btn btn-primary btn-sm" type="reset" value="Reset">
+          <input class="btn btn-primary btn-sm" type="submit" value="Add Member">
         </div>
       </form>
     </div>
   </main>
-  </div>
+</div>
 </body>
 </html>

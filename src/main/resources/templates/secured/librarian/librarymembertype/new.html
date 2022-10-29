@@ -4,13 +4,13 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layouts/master-layout}">
 <head>
-    <title>Library - Membership Type</title>
+  <title>Library - Membership Type</title>
 </head>
 <body>
-    <div layout:fragment="content" style="padding-top:1em;" class="container">
+<div layout:fragment="content" style="padding-top:1em;" class="container">
   <main>
     <span style="font-size: 2em;" class="primary-color">Add New Membership Type</span>
-      <hr>
+    <hr>
     <div style="border: 1px solid;padding: 1em;">
       <div>
         Fields marked with asterisk (*) are required.
@@ -30,25 +30,25 @@
             <label>Max Length Borrow*</label>
           </div>
           <div>
-              <span th:if="${#fields.hasErrors('maxLengthBorrowBook')}" th:errors="*{maxLengthBorrowBook}" style="color:red;"></span>
-              <input name="maxLengthBorrowBook" type="text" th:value="${libraryMemberType.maxLengthBorrowBook}" autofocus required>
+            <span th:if="${#fields.hasErrors('maxLengthBorrowBook')}" th:errors="*{maxLengthBorrowBook}" style="color:red;"></span>
+            <input name="maxLengthBorrowBook" type="text" th:value="${libraryMemberType.maxLengthBorrowBook}" autofocus required>
           </div>
           <div>
-              <label>Overdue Fee*</label>
+            <label>Overdue Fee*</label>
           </div>
           <div>
-              <span th:if="${#fields.hasErrors('overdueFee')}" th:errors="*{overdueFee}" style="color:red;"></span>
-              <input name="overdueFee" type="number" step="any" th:value="${libraryMemberType.overdueFee}" autofocus required>
+            <span th:if="${#fields.hasErrors('overdueFee')}" th:errors="*{overdueFee}" style="color:red;"></span>
+            <input name="overdueFee" type="number" step="any" th:value="${libraryMemberType.overdueFee}" autofocus required>
           </div>
         </fieldset>
         <div style="margin-top: 1em;">
           <a class="std-lnk-btn" href="/library/secured/librarymembertype/list">Cancel</a>
-          <input class="std-btn" type="reset" value="Reset">
-          <input class="std-btn" type="submit" value="Add Membership Type">
+          <input class="btn btn-primary btn-sm" type="reset" value="Reset">
+          <input class="btn btn-primary btn-sm" type="submit" value="Add Membership Type">
         </div>
       </form>
     </div>
   </main>
-  </div>
+</div>
 </body>
 </html>

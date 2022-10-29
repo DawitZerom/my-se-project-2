@@ -20,16 +20,15 @@
           </label>
           <div>
             <input type="search" name="isbn" placeholder="ISBN" id="isbn" th:value="${isbn}" autofocus required>
-            <button type="submit">Search</button>
-          </div>
+            <button type="submit" class="btn btn-primary btn-sm">Search</button>          </div>
         </fieldset>
       </form>
     </section>
     <br>
     <section>
       <h5>List of Checkout Records to Check-in</h5>
-    <table>
-      <thead>
+      <table class="table table-bordered table-striped table-hover">
+        <thead class="thead-light">
         <tr>
           <th>#</th>
           <th>ISBN</th>

@@ -25,15 +25,15 @@
           </label>
           <div>
             <input type="search" name="searchString" id="searchString" th:value="${searchString}" autofocus>
-            <button type="submit">Search</button>
+            <button type="submit" class="btn btn-primary btn-sm">Search</button>
           </div>
         </fieldset>
       </form>
     </section>
     <br>
     <section>
-    <table>
-      <thead>
+      <table class="table table-bordered table-striped table-hover">
+        <thead class="thead-light">
         <tr>
           <th>#</th>
           <th>ISBN</th>

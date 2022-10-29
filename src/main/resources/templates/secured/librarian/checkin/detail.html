@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layouts/master-layout}">
 <head>
-    <title>Library - Check-in</title>
+    <title>Library - Checkin</title>
 </head>
 <body>
     <div layout:fragment="content" style="padding-top:1em;" class="container">
@@ -29,6 +29,9 @@
             </div>
             <div>
               <span>Member Name</span> : <span th:text="${checkoutRecord.libraryMember.Firstname}"></span> <span th:text="${checkoutRecord.libraryMember.Lastname}"></span>
+            </div>
+            <div>
+              <span>Contact</span> : <span th:text="${checkoutRecord.libraryMember.phone}"></span>
             </div>
             <div>
               <span>Checked-out Date</span> : <span th:text="${checkoutRecord.checkoutDate}"></span>

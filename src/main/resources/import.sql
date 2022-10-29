@@ -14,7 +14,6 @@ INSERT INTO library_member_type VALUES (null, 21, 'basic', 0.25);
 INSERT INTO library_member_type VALUES (null, 21, 'staff', 0.10);
 INSERT INTO library_member_type VALUES (null, 42, 'senior', 0.05);
 
-
 INSERT INTO `swe_project`.`address` VALUES (null, 'Fairfield', 'IA', '1000 N 4th St', '52557');
 INSERT INTO `swe_project`.`address` VALUES (null, 'Fairfield', 'IA', '1001 N 4th St', '52557');
 INSERT INTO `swe_project`.`address` VALUES (null, 'Fairfield', 'IA', '1002 N 4th St', '52557');
@@ -22,7 +21,6 @@ INSERT INTO `swe_project`.`address` VALUES (null, 'Fairfield', 'IA', '1002 N 4th
 INSERT INTO library_member VALUES (null, 'Kaka', 'Ricardo', '10001', '51312345', 1, 1);
 INSERT INTO library_member VALUES (null, 'Messi', 'Lionel', '10002', '51312346', 2, 2);
 INSERT INTO library_member VALUES (null, 'Ronaldo', 'Cr', '10003', '51312347', 3, 3);
-
 
 INSERT INTO book VALUES (null, 'Leo Tolstoy', 3, '1111', 'A1', 'Penguin and Random House', 'War and Peace', 3);
 INSERT INTO book VALUES (null, 'F. Scott Fitzgerald', 5, '2222', 'A2', 'Harper Collins', 'The Great Gatsby', 5);

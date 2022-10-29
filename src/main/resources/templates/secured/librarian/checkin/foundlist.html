@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layouts/master-layout}">
 <head>
-    <title>Library - Check-in</title>
+    <title>Library - Checkin</title>
 </head>
 <body>
     <div layout:fragment="content" style="padding-top:1em;" class="container">
@@ -37,6 +37,7 @@
             <th>Book Title</th>
             <th>Member Number</th>
             <th>Member Name</th>
+            <th>Contact</th>
             <th>Checkout Date</th>
             <th>Due Date</th>
             <th>Checked-In?</th>
@@ -52,6 +53,7 @@
             <td>
               <span th:text="${checkoutRecord.libraryMember.Firstname}"></span> <span th:text="${checkoutRecord.libraryMember.Lastname}"></span>
             </td>
+            <td th:text="${checkoutRecord.libraryMember.phone}"></td>
             <td th:text="${checkoutRecord.checkoutDate}"></td>
             <td th:switch="${#temporals.format(checkoutRecord.dueDate, 'yyyy-MM-dd') lt #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}">
               <span th:case="true" th:text="${checkoutRecord.dueDate}" style="color: red;"></span>

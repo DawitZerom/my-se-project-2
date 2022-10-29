@@ -37,8 +37,8 @@
         <tr>
           <th>#</th>
           <th>Name</th>
-          <th>Max Length Borrow</th>
-          <th>Overdue Fee</th>
+          <th>Max Length Borrow (days)</th>
+          <th>Overdue Fee (per day)</th>
           <th>*</th>
           <th>*</th>
         </tr>
@@ -48,10 +48,10 @@
           <th th:text="${counter.count}+${'.'}"></th>
           <td th:text="${libraryMemberType.name}"></td> 
           <td>
-            <span th:text="${libraryMemberType.maxLengthBorrowBook}"></span> day(s)
+            <span th:text="${libraryMemberType.maxLengthBorrowBook}"></span> 
           </td>
           <td>
-            $ <span th:text="${libraryMemberType.overdueFee}"></span>
+            $ <span th:text="${libraryMemberType.overdueFee}"></span> 
           </td>
           <td><a th:href="@{'/library/secured/librarymembertype/edit/{libraryMemberTypeId}'(libraryMemberTypeId=${libraryMemberType.libraryMemberTypeId})}">Edit</a></td>
           <td><a th:href="@{'/library/secured/librarymembertype/delete/{libraryMemberTypeId}'(libraryMemberTypeId=${libraryMemberType.libraryMemberTypeId})}">Delete</a></td>

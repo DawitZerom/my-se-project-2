@@ -17,7 +17,7 @@ import edu.miu.cs.cs425.fairfieldlibrarywebapp.model.Book;
 import edu.miu.cs.cs425.fairfieldlibrarywebapp.service.BookService;
 
 @Controller
-@RequestMapping(value = { "/fairfieldlibrary/book", "/library/secured/book" })
+@RequestMapping(value = { "/library/secured/book" })
 public class BookController {
     @Autowired
     private BookService bookService;
@@ -29,6 +29,16 @@ public class BookController {
         modelAndView.addObject("books", books);
         modelAndView.addObject("currentPageNo", pageNo);
         modelAndView.setViewName("secured/librarian/book/list");
+        return modelAndView;
+    }
+
+    @GetMapping(value = { "/member/list" })
+    public ModelAndView listBooksForMember(@RequestParam(defaultValue = "0") int pageNo) {
+        var books = bookService.getBooksPaged(pageNo);
+        var modelAndView = new ModelAndView();
+        modelAndView.addObject("books", books);
+        modelAndView.addObject("currentPageNo", pageNo);
+        modelAndView.setViewName("secured/member/book/list");
         return modelAndView;
     }
 
@@ -99,6 +109,19 @@ public class BookController {
         modelAndView.addObject("books", books);
         modelAndView.addObject("searchString", searchString);
         modelAndView.setViewName("secured/librarian/book/searchResult");
+        return modelAndView;
+    }
+
+    @GetMapping(value = { "/member/search" })
+    public ModelAndView searchBooksForMember(@RequestParam String searchString) {
+        if (searchString.isBlank()) {
+            return new ModelAndView("redirect:/library/secured/book/member/list");
+        }
+        var modelAndView = new ModelAndView();
+        var books = bookService.searchBooks(searchString);
+        modelAndView.addObject("books", books);
+        modelAndView.addObject("searchString", searchString);
+        modelAndView.setViewName("secured/member/book/searchResult");
         return modelAndView;
     }
 }
